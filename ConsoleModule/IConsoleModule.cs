@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleModule
+namespace Conzap
 {
-    public interface IConsoleModule
+    public interface IConzapModule
     {
         string Title { get; }
         void Execute();
     }
-
- 
 }

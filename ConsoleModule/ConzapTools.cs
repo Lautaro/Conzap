@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleModule
+namespace Conzap
 {
-    class Tools
+    public static class ConzapTools
     {
         static string NL = System.Environment.NewLine;
+
+        /// <summary>
+        /// Stops execution and asks user for a one key input and returns it.
+        /// </summary>
+        /// <param name="message">Message for the user</param>
+        /// <param name="clearScreen">If screen should clear before asking for input</param>
+        /// <returns>The one key input as a ConsoleKeyInfo</returns>
         public static ConsoleKeyInfo KeyInput(string message = "Press any key to continue...", bool clearScreen = false)
         {
             if (clearScreen)
@@ -20,7 +27,16 @@ namespace ConsoleModule
             return input;
         }
 
-        public static int NumberInput(string message, int firstNumber = 1, int lastNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false)
+        /// <summary>
+        /// Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
+        /// </summary>
+        /// <param name="message">Message displayed on screen when asking for input</param>
+        /// <param name="lowestNr">Lowest accepted number</param>
+        /// <param name="highestNumber">Highest accepted number</param>
+        /// <param name="errorMessage">Displayed if input does not parse to in</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
+        /// <returns>the parsed input as int</returns>
+        public static int NumberInput(string message, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false)
         {
             while (true)
             {
@@ -32,7 +48,7 @@ namespace ConsoleModule
                 var input = StringInput(message);
                 if (int.TryParse(input, out int number))
                 {
-                    if (number >= firstNumber && number <= lastNumber)
+                    if (number >= lowestNr && number <= highestNumber)
                     {
                         return number;
                     }
@@ -42,7 +58,12 @@ namespace ConsoleModule
             }
         }
 
-
+        /// <summary>
+        /// Stops execution and asks user for input.
+        /// </summary>
+        /// <param name="message">Message displayed on screen when asking for input</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
+        /// <returns>the input as string</returns>
         public static string StringInput(string message, bool clearScreen = false)
         {
             if (clearScreen)
@@ -54,7 +75,6 @@ namespace ConsoleModule
             return input;
         }
 
-
         public static int PrintMenu(params string[] list)
         {
             return PrintMenu(list: list, clearScreen: false);
@@ -65,14 +85,22 @@ namespace ConsoleModule
             return PrintMenu(message, "", "Choose an option...", true, list);
         }
 
-
+        /// <summary>
+        /// Prints a menu and asks user for input Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
+        /// </summary>
+        /// <param name="message">Message displayed on screen when asking for input</param>
+        /// <param name="lowestNr">Lowest accepted number</param>
+        /// <param name="highestNumber">Highest accepted number</param>
+        /// <param name="errorMessage">Displayed if input does not parse to in</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
+        /// <returns>the parsed input as int</returns>
         public static int PrintMenu(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] list)
         {
             if (clearScreen)
             {
                 Console.Clear();
             }
-            Tools.PrintList(header, style: ConsoleListStyle.Numbers, list: list);
+            ConzapTools.PrintList(header, style: ConsoleListStyle.Numbers, list: list);
 
             var number = NumberInput(message, 1, list.Count());
             return number;
@@ -122,35 +150,12 @@ namespace ConsoleModule
 
                 Console.WriteLine(listStyle + item);
             }
-
-            //    DoActionMenu("DO WHAT?",
-            //        new ActionMenuItem() { Header = "Do this", Callback = Do1 },
-            //        new ActionMenuItem() { Header = "Or you can do that why not", Callback = Do2 },
-            //        new ActionMenuItem() { Header = "Last option ", Callback = Do3 });
-            //
         }
 
-
-        public static void Do1()
+        public static void RunMenu(string Header, params ConzapMenuItem[] menuItems)
         {
-            Tools.KeyInput("DO1 !!!!");
-        }
-        public static void Do2()
-        {
-            Tools.KeyInput("DO2 !!!!");
-        }
-        public static void Do3()
-        {
-            Tools.KeyInput("DO3 !!!!");
-        }
-        public static void DoActionMenu(string header, params ActionMenuItem[] menu)
-        {
-            while (true)
-            {
-                var input = PrintMenu(header, clearScreen: true, list: menu.Select(ami => ami.Header).ToArray());
-                Console.Clear();
-                menu[input - 1].Callback();
-            }
+            var menu = new ConzapMenu(Header, menuItems.ToList());
+            menu.Run();
         }
 
         public enum ConsoleListStyle
@@ -161,25 +166,7 @@ namespace ConsoleModule
             Hyphen,
             Asterisc
         }
-
-
-
-        public class ActionMenuItem
-        {
-            public string Header { get; set; }
-            public Action Callback { get; set; }
-        }
-
-        public class ActionMenu
-        {
-            public List<ActionMenuItem> MenuItems { get; set; }
-            public string Header { get; set; }
-
-            public ActionMenu()
-            {
-                MenuItems = new List<ActionMenuItem>();
-            }
-        }
     }
+
 }
 

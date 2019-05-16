@@ -1,0 +1,11 @@
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\obj\Debug\MyConsoleApp.csprojAssemblyReference.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\obj\Debug\MyConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\Conzap.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\obj\Debug\MyConsoleApp.csproj.CopyComplete
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\Conzap.dll
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleApp2\bin\Debug\Conzap.dll.config

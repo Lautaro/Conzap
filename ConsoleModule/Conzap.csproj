@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{114DC391-915B-44D7-A7A4-EE1F497D0702}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ConsoleModule</RootNamespace>
-    <AssemblyName>ConsoleModule</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Conzap</RootNamespace>
+    <AssemblyName>Conzap</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,14 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consapp.cs" />
-    <Compile Include="HandlePersons.cs" />
+    <Compile Include="ConzapContainer.cs" />
+    <Compile Include="ConzapMenu.cs" />
+    <Compile Include="ConzapMenuItem.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IConsoleModule.cs" />
-    <Compile Include="ModuleOne.cs" />
-    <Compile Include="PrintList.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools.cs" />
+    <Compile Include="ConzapTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

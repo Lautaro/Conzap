@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleModule
+namespace Conzap
 {
-    class HandlePersons : IConsoleModule
+    class HandlePersons : IConzapModule
     {
         public string Title { get; set; } = "Handle persons";
         List<Person> Persons { get; set; } 
@@ -41,9 +41,9 @@ namespace ConsoleModule
             var person = new Person();
 
             Console.WriteLine("CREATE NEW PERSON");
-            person.Name = Tools.StringInput("Name: ");
-            person.Age = Tools.NumberInput("Age: ", 25, 110);
-            var year = Tools.NumberInput("Year: ", 1900, DateTime.Now.Year);
+            person.Name = ConzapTools.StringInput("Name: ");
+            person.Age = ConzapTools.NumberInput("Age: ", 25, 110);
+            var year = ConzapTools.NumberInput("Year: ", 1900, DateTime.Now.Year);
             person.Year = new DateTime(year, now.Month, now.Day);
 
             Persons.Add(person);
@@ -55,13 +55,13 @@ namespace ConsoleModule
             foreach (var person in Persons)
             {
                 
-                Tools.PrintList(person.Name.ToUpper(),
+                ConzapTools.PrintList(person.Name.ToUpper(),
                     "Age: " + person.Age.ToString(),
                     "Year: " + person.Year.ToString());
-                Tools.SkipLines(2);
+                ConzapTools.SkipLines(2);
             }
 
-            Tools.KeyInput();
+            ConzapTools.KeyInput();
         }
 
         public void Execute()
@@ -69,7 +69,7 @@ namespace ConsoleModule
             while (true)
             {
                 Console.Clear();
-                var nr = Tools.PrintMenu(header: "HANDLE PERSONS", message: "Choose...",list:  new string[] { "Create person", "List all persons" });
+                var nr = ConzapTools.PrintMenu(header: "HANDLE PERSONS", message: "Choose...",list:  new string[] { "Create person", "List all persons" });
                 switch (nr)
                 {
                     case 1:

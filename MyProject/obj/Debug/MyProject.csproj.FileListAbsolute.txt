@@ -1,0 +1,11 @@
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\obj\Debug\MyProject.csprojAssemblyReference.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\obj\Debug\MyProject.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\MyProject.exe.config
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\MyProject.exe
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\MyProject.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\ConsoleModule.exe
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\ConsoleModule.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\bin\Debug\ConsoleModule.exe.config
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\obj\Debug\MyProject.csproj.CopyComplete
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\obj\Debug\MyProject.exe
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\MyProject\obj\Debug\MyProject.pdb

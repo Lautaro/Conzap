@@ -1,7 +1,7 @@
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\ConsoleModule.csprojAssemblyReference.cache
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\ConsoleModule.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\ConsoleModule.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\ConsoleModule.pdb
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\ConsoleModule.exe.config
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\ConsoleModule.exe
-C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\ConsoleModule.pdb
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\ConsoleModule.exe
-C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\ConsoleModule.pdb

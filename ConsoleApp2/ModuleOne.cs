@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleModule
+namespace Conzap
 {
-    class ModuleOne : IConsoleModule
+    class ModuleOne : IConzapModule
     {
         public string Title { get; } = "This is module one";
 
         public void Execute()
         {
-            Tools.KeyInput("Hello from module one!");
+            ConzapTools.KeyInput("Hello from module one!");
         }
     }
 }

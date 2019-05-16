@@ -1,0 +1,7 @@
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.csproj.CoreCompileInputs.cache
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\Conzap.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.pdb
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\Conzap.dll.config
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\Conzap.dll
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.dll
+C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.csprojAssemblyReference.cache
