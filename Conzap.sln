@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conzap", "ConsoleModule\Conzap.csproj", "{114DC391-915B-44D7-A7A4-EE1F497D0702}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conzap", "Conzap\Conzap.csproj", "{114DC391-915B-44D7-A7A4-EE1F497D0702}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyConsoleApp", "ConsoleApp2\MyConsoleApp.csproj", "{9F61B21D-FAE7-46C3-9900-52F27A6A6666}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConzapTestproject", "Testproject\ConzapTestproject.csproj", "{9F61B21D-FAE7-46C3-9900-52F27A6A6666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
