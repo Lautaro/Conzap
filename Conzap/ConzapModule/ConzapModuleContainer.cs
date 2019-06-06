@@ -22,7 +22,7 @@ namespace Conzap.Module
             {
                 Console.Clear();
 
-                var index = ConzapTools.PrintMenu(message, menuItems: Modules.Select(m => m.Title).ToArray())-1;
+                var index = ConzapTools.AskForListChoice(message, menuItems: Modules.Select(m => m.Title).ToArray())-1;
 
                 Console.Clear();
                 Modules[index].Execute();

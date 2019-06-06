@@ -5,3 +5,9 @@ C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\Conzap.
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\bin\Debug\Conzap.dll
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.dll
 C:\Users\Lautaro\Source\Repos\ConsoleModulesTest\ConsoleModule\obj\Debug\Conzap.csprojAssemblyReference.cache
+D:\Projects\Conzap\Conzap\bin\Debug\Conzap.dll.config
+D:\Projects\Conzap\Conzap\bin\Debug\Conzap.dll
+D:\Projects\Conzap\Conzap\bin\Debug\Conzap.pdb
+D:\Projects\Conzap\Conzap\obj\Debug\Conzap.csproj.CoreCompileInputs.cache
+D:\Projects\Conzap\Conzap\obj\Debug\Conzap.dll
+D:\Projects\Conzap\Conzap\obj\Debug\Conzap.pdb

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Lautaro_Arino</authors>
+    <owners>Lautaro_Arino</owners>
+    <licenseUrl>http://ww.google.com</licenseUrl>
+    <projectUrl>http://ww.google.com</projectUrl>
+    <iconUrl>http://ww.google.com</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Still working on it</description>
+    <releaseNotes>Nothing yet.</releaseNotes>
+    <copyright>Copyright 2019 Lautaro Ariño</copyright>
+    <tags>Console</tags>
+  </metadata>
+</package>

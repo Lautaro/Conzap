@@ -1,0 +1,11 @@
+D:\Projects\Conzap\Testproject\bin\Release\ConsoleApp2.exe.config
+D:\Projects\Conzap\Testproject\bin\Release\ConsoleApp2.exe
+D:\Projects\Conzap\Testproject\bin\Release\ConsoleApp2.pdb
+D:\Projects\Conzap\Testproject\bin\Release\Conzap.dll
+D:\Projects\Conzap\Testproject\bin\Release\Conzap.pdb
+D:\Projects\Conzap\Testproject\bin\Release\Conzap.dll.config
+D:\Projects\Conzap\Testproject\obj\Release\ConzapTestproject.csprojAssemblyReference.cache
+D:\Projects\Conzap\Testproject\obj\Release\ConzapTestproject.csproj.CoreCompileInputs.cache
+D:\Projects\Conzap\Testproject\obj\Release\ConzapTestproject.csproj.CopyComplete
+D:\Projects\Conzap\Testproject\obj\Release\ConsoleApp2.exe
+D:\Projects\Conzap\Testproject\obj\Release\ConsoleApp2.pdb

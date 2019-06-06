@@ -10,14 +10,14 @@ namespace Conzap
     /// The root container of a menu. Add menu items to it and run it. 
     /// Use one of three different methods to add menu items and connect the menu items to methods run when item is selected in menu.
     /// </summary>
-  public class ConzapMenu
+    public class ConzapMenu
     {
         public List<ConzapMenuItem> MenuItems { get; set; }
         public string Header { get; set; }
 
         public ConzapMenu(string header = "Options", List<ConzapMenuItem> menuItems = null)
         {
-            if (menuItems != null && menuItems.Count >0)
+            if (menuItems != null && menuItems.Count > 0)
             {
                 MenuItems = menuItems;
             }
@@ -29,14 +29,13 @@ namespace Conzap
             {
                 Header = header;
             }
-            
         }
 
         public void Run()
         {
             while (true)
             {
-                var input = ConzapTools.PrintMenu(Header, clearScreen: true, menuItems: MenuItems.Select(ami => ami.Title).ToArray());
+                var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: MenuItems.Select(ami => ami.Title).ToArray());
                 Console.Clear();
                 MenuItems[input - 1].Callback();
             }
@@ -44,7 +43,7 @@ namespace Conzap
         /// <summary>
         /// Add menuItem by instanciating one and adding it.
         /// </summary>        
-        public void Add( ConzapMenuItem menuItem)
+        public void Add(ConzapMenuItem menuItem)
         {
             if (menuItem != null)
             {

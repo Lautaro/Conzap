@@ -30,6 +30,7 @@ namespace Conzap
         }
 
         public string Title { get; set; }
+        public string Value { get; set; }
         public Action Callback { get; set; }
     }
 }

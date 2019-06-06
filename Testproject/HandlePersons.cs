@@ -44,9 +44,9 @@ namespace ConsoleApp2
             var person = new Person();
 
             Console.WriteLine("CREATE NEW PERSON");
-            person.Name = ConzapTools.StringInput("Name: ");
-            person.Age = ConzapTools.NumberInput("Age: ", 0, 110);
-            var year = ConzapTools.NumberInput("Year: ", 1900, DateTime.Now.Year);
+            person.Name = ConzapTools.AskForString("Name: ");
+            person.Age = ConzapTools.AskForInt("Age: ", 0, 110);
+            var year = ConzapTools.AskForInt("Year: ", 1900, DateTime.Now.Year);
             person.Year = new DateTime(year, now.Month, now.Day);
 
             Persons.Insert(0,person);
@@ -64,7 +64,7 @@ namespace ConsoleApp2
                 ConzapTools.SkipLines(2);
             }
 
-            ConzapTools.KeyInput();
+            ConzapTools.AskForKey();
         }
     }
 

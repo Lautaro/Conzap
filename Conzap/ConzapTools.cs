@@ -16,15 +16,25 @@ namespace Conzap
         /// <param name="message">Message for the user</param>
         /// <param name="clearScreen">If screen should clear before asking for input</param>
         /// <returns>The one key input as a ConsoleKeyInfo</returns>
-        public static ConsoleKeyInfo KeyInput(string message = "Press any key to continue...", bool clearScreen = false)
+        public static ConsoleKeyInfo AskForKey(string message = "Press any key to continue...", bool clearScreen = false)
         {
-            if (clearScreen)
-            {
-                Console.Clear();
-            }
-            Console.WriteLine(message);
+            ConzapToolHelpers.ClearScreen(clearScreen);
+      
+                  ConzapToolHelpers.ConsoleWriteLine(message);
+            
             var input = Console.ReadKey();
             return input;
+        }
+
+        /// <summary>
+        /// Stops execution and asks user for a one key input and returns it.
+        /// </summary>
+        /// <param name="message">Message for the user</param>
+        /// <param name="clearScreen">If screen should clear before asking for input</param>
+        /// <returns>The one key input as a ConsoleKeyInfo</returns>
+        public static void PauseForKey()
+        {
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -36,7 +46,7 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int NumberInput(string message, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false)
+        public static int AskForInt(string message, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false, int modifier = 0)
         {
             var singleDigit = false;
             if (highestNumber < 10)
@@ -46,25 +56,23 @@ namespace Conzap
 
             while (true)
             {
-                if (clearScreen)
-                {
-                    Console.Clear();
-                }
-                string input = "";
+                ConzapToolHelpers.ClearScreen(clearScreen);
+   
+                   string input = "";
                 if (singleDigit)
                 {
-                    input = KeyInput(message).KeyChar.ToString();
+                    input = AskForKey(message).KeyChar.ToString();
                 }
                 else
                 {
-                    input = StringInput(message);
+                    input = AskForString(message);
                 }
                  
                 if (int.TryParse(input, out int number))
                 {
                     if (number >= lowestNr && number <= highestNumber)
                     {
-                        return number;
+                        return number + modifier;
                     }
                 }
 
@@ -78,64 +86,116 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the input as string</returns>
-        public static string StringInput(string message, bool clearScreen = false)
+        public static string AskForString(string message, bool clearScreen = false)
         {
-            if (clearScreen)
-            {
-                Console.Clear();
-            }
-            Console.WriteLine(message);
+            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapToolHelpers.ConsoleWriteLine(message);
             var input = Console.ReadLine();
             return input;
         }
 
         /// <summary>
-        /// Prints a menu and asks user for input Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
+        /// Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
         /// This overload clears screen before printing.
         /// </summary>
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int PrintMenu(params string[] menuItems)
+        public static int AskForListChoice(params string[] menuItems)
         {
-            return PrintMenu(menuItems: menuItems, clearScreen: false);
+            return AskForListChoice(listItems: menuItems, clearScreen: false);
         }
 
         /// <summary>
-        /// Prints a menu and asks user for input Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
+        ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
         /// This overload clears screen before printing.
         /// </summary>
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="menuItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
-        public static int PrintMenu(string message, params string[] menuItems)
+        public static int AskForListChoice(string message, params string[] menuItems)
         {
-            return PrintMenu(message, "", "Choose an option...", true, menuItems);
+            return AskForListChoice(message, "", "Choose an option...", true, menuItems);
         }
 
         /// <summary>
-        /// Prints a menu and asks user for input Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
+        ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
         /// </summary>
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="lowestNr">Lowest accepted number</param>
         /// <param name="highestNumber">Highest accepted number</param>
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
-        /// <param name="menuItems">Collection of strings making the items in the menu</param>
+        /// <param name="listItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
-        public static int PrintMenu(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] menuItems)
+        public static int AskForListChoice(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] listItems)
         {
-            if (clearScreen)
-            {
-                Console.Clear();
-            }
-            ConzapTools.PrintList(header, style: ConsoleListStyle.Numbers, menuItems: menuItems);
+            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapTools.PrintList(header, style: ConsoleListStyle.Numbers, menuItems: listItems);
 
-            var number = NumberInput(message, 1,menuItems.Count()+1);
+            var number = AskForInt(message, 1,listItems.Count(), modifier:-1);
             return number;
         }
 
+        /// <summary>
+        ///Prints a list of the keys in a KeyValuePair collection and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
+        ///Returns the value of the KeyValuePair
+        /// </summary>
+        /// <param name="items">Collection of KeyValuePair<string, T>. String will be the items the user sees in the list, value will be what is returned</param>
+        /// <param name="message">Message displayed on screen when asking for input</param>
+        /// <param name="lowestNr">Lowest accepted number</param>
+        /// <param name="highestNumber">Highest accepted number</param>
+        /// <param name="errorMessage">Displayed if input does not parse to in</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
+        /// <returns>the parsed input as type T</returns>
+        public static T AskForListChoice<T>(IEnumerable<KeyValuePair<string, T>> items, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        {
+            var titles = items.Select(kvp => kvp.Key).ToArray();
+
+            var index = AskForListChoice(listItems:titles, clearScreen:clearScreen);
+            return items.ToArray()[index].Value;
+        }
+
+        /// <summary>
+        ///Prints a list of the items in collection of T and asks user to choose one of the items. 
+        ///Returns the T chosen.
+        /// </summary>
+        /// <param name="items">Collection of T. </param>
+        /// <param name="items">Collection of T. </param>
+        /// <param name="keyFactory">How to get the key</param>
+        /// <param name="lowestNr">Lowest accepted number</param>
+        /// <param name="highestNumber">Highest accepted number</param>
+        /// <param name="errorMessage">Displayed if input does not parse to in</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
+        /// <returns>The chosen item of type T</returns>
+        public static T AskForListChoice<T>(IEnumerable<T> items,Func<T,string> keyFactory , string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        {
+            var titles = items.Select(item => keyFactory(item)).ToArray();
+
+            var index = AskForListChoice(listItems: titles, clearScreen: clearScreen);
+            return items.ToArray()[index];
+        }
+
+        /// <summary>
+        ///Prints a list of the items in collection of T and asks user to choose one of the items. 
+        ///Returns the the returnValue for the chosen item chosen.
+        /// </summary>
+        /// <param name="items">Collection of T. </param>
+        /// <param name="items">Collection of T. </param>
+        /// <param name="keyFactory">How to get the key</param>
+        /// <param name="lowestNr">Lowest accepted number</param>
+        /// <param name="highestNumber">Highest accepted number</param>
+        /// <param name="errorMessage">Displayed if input does not parse to in</param>
+        /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
+        /// <returns>The chosen item of type T</returns>
+        public static string AskForListChoice<T>(IEnumerable<T> items, Func<T, string> keyFactory, Func<T, string> returnValueFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        {
+            var titles = items.Select(item => keyFactory(item)).ToArray();
+
+            var index = AskForListChoice(listItems: titles, clearScreen: clearScreen);
+            return keyFactory(items.ToArray()[index]);
+        }
 
         /// <summary>
         /// Skips amount of lines creating space. Defaults to 2 lines.
@@ -164,11 +224,8 @@ namespace Conzap
         /// <param name="clearScreen">Should screen clear before list is printed?</param>
         /// <param name="menuItems">Items to be listed</param>
         public static void PrintList(string header = "", ConsoleListStyle style = ConsoleListStyle.Asterisk,bool clearScreen = false, params string[] menuItems)
-        {
-            if (!string.IsNullOrEmpty(header))
-            {
-                Console.WriteLine(header);
-            }
+        {   
+            ConzapToolHelpers.PrintIfNotEmpty(header);
 
             for (int i = 1; i <= menuItems.Length; i++)
             {
@@ -192,7 +249,24 @@ namespace Conzap
                         break;
                 }
 
-                Console.WriteLine(listStyle + item);
+                ConzapToolHelpers.ConsoleWriteLine(listStyle + item);
+            }
+        }
+
+        /// <summary>
+        /// Prints a single line.
+        /// </summary>
+        /// <param name="printLine">String to print</param>
+        /// <param name="waitMessage">If not null or empty is printed and then waits for key. Is empty or null there is no wait.</param>
+        /// <param name="clearScreen">Should screen clear before printing?</param>
+        public static void PrintLine(string printLine, string waitMessage = "Any key to continue", bool clearScreen = false)
+        {
+            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapToolHelpers.ConsoleWriteLine(printLine);
+
+            if (ConzapToolHelpers.PrintIfNotEmpty(waitMessage))
+            {
+                PauseForKey();
             }
         }
 
