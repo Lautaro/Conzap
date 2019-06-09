@@ -1,5 +1,6 @@
 ﻿using ConsoleApp2;
-using Conzap;
+using Conzap.Tools;
+
 using Conzap.Module;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace ConsoleApp2
                     "Year: " + person.Year.ToString());
                 ConzapTools.SkipLines(2);
             }
-
+            
             ConzapTools.AskForKey();
         }
     }

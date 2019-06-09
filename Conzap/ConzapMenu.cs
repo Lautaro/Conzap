@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Conzap;
+using Conzap.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Conzap
+namespace Conzap.Menu
 {
     /// <summary>
     /// The root container of a menu. Add menu items to it and run it. 

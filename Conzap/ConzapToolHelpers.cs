@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Conzap
 {
-    internal class ConzapToolHelpers
+    internal static class ConzapToolHelpers
     {
         internal static void ConsoleWriteLine(string writeLine)
         {

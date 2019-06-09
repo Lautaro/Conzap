@@ -1,0 +1,51 @@
+﻿using Conzap.Menu;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Conzap.Tools
+{
+    internal static class Misc
+    {
+        static string NL = System.Environment.NewLine;
+
+        public static void PauseForKey()
+        {
+            Console.ReadKey();
+        }
+
+        public static void SkipLines(int linesToSkip = 2)
+        {
+            for (int i = 0; i < linesToSkip; i++)
+            {
+                Console.WriteLine();
+            }
+        }
+
+        public static void RunMenu(string Header, params ConzapMenuItem[] menuItems)
+        {
+            var menu = new ConzapMenu(Header, menuItems.ToList());
+            menu.Run();
+        }
+
+        public static void RunMenu(Type menuHolderType)
+        {
+            var menu = new ConzapMenu();
+            var instance = Activator.CreateInstance(menuHolderType);
+            var menuItemAttributedMethods = menuHolderType.GetMethods().
+                Where(m => m.GetCustomAttributes(typeof(ConzapMenuItemAttribute), true).Count() > 0);
+
+            foreach (var menuItemMethod in menuItemAttributedMethods)
+            {
+                ConzapMenuItemAttribute metaData = menuItemMethod.GetCustomAttributes(typeof(ConzapMenuItemAttribute), true)[0] as ConzapMenuItemAttribute;
+                var index = metaData.Index;
+                var header = metaData.Header;
+                var delegateAction = (Action)menuItemMethod.CreateDelegate(typeof(Action), instance);
+                menu.Add(header, delegateAction);
+            }
+            menu.Run();
+        }
+    }
+}

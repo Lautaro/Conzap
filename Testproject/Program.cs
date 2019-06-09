@@ -1,4 +1,6 @@
 ﻿using Conzap;
+using Conzap.Menu;
+using Conzap.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,7 +29,47 @@ namespace ConsoleApp2
             // InstantiateConzapMenu(handlePersons);
 
             // Fourth example
-            AskForList2();
+            // AskForList2();
+
+            // Fifths example
+            // PrintListOfObjects();
+
+            //PrintListOfObjects2();
+
+            // PrintMenuOfObjects();
+
+            // TYPE PRINTER
+            TypePrinter();
+        }
+
+        private static void TypePrinter()
+        {
+            var fruits = GetFruits();
+            var printer = new ConzapTypePrinter<Fruit>(fruits);
+            printer.Run();
+
+        }
+
+        private static void PrintMenuOfObjects()
+        {
+            while (true)
+            {
+                var ObjectMenu = new ConzapObjectMenu<Fruit>(GetFruits(), f => f.Type.ToUpper(), "Choose fruit to see details", clearSreen: true);
+                ObjectMenu.Add("Name: ", f => f.Type);
+                ObjectMenu.Add("Id: ", f => f.Id.ToString());
+                ObjectMenu.AddAndRun("Descrition: ", f => f.Description);
+            }
+        }
+
+        private static void PrintListOfObjects()
+        {
+            var fruits = GetFruits();
+
+            new ConzapObjectPrinter<Fruit>(fruits).
+                Add("Fruit type: ", f => f.Type + $" ({f.Id})").
+                Add("Description: ", f => f.Description).
+                Add("Quantity: ", f => f.Quantity.ToString()).
+                Run();
         }
 
         private static void AskForList()
@@ -36,7 +78,7 @@ namespace ConsoleApp2
             {
                 var options = GetFruits().ToDictionary(f => f.Type, f => f.Description);
 
-                var choice = ConzapTools.AskForListChoice<string>(options, clearScreen:true);
+                var choice = ConzapTools.AskForListChoice<string>(options, clearScreen: true);
 
                 ConzapTools.PrintLine($"You chose: " + choice, clearScreen: true);
             }
@@ -47,9 +89,9 @@ namespace ConsoleApp2
             while (true)
             {
                 var fruits = GetFruits();
-                var choice = ConzapTools.AskForListChoice<Fruit>(fruits,f => f.Description,f=> f.Type, clearScreen: true);
-                
-                ConzapTools.PrintLine( choice + " MMMM! Great choice :D", clearScreen: true);
+                var choice = ConzapTools.AskForListChoice<Fruit>(fruits, f => f.Description, f => f.Type, clearScreen: true);
+
+                ConzapTools.PrintLine(choice + " MMMM! Great choice :D", clearScreen: true);
             }
         }
 
@@ -109,11 +151,20 @@ namespace ConsoleApp2
         {
             return nextId++;
         }
-        
+
+        [ConzapProperty("Identification")]
         public int Id { get; set; }
+
+        [ConzapProperty("Amount of fruits")]
         public int Quantity { get; set; }
+
+        [ConzapProperty("Fruit")]
         public string Type { get; set; }
+
+        [ConzapProperty("About this fruit")]
         public string Description { get; set; }
+
+        [ConzapProperty("Main color")]
         public Color Color { get; set; }
 
         public Fruit(int quantity, string type, string description, Color color)
