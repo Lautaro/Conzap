@@ -12,11 +12,8 @@ namespace Conzap.Tools
     {
         #region Misc
         /// <summary>
-        /// Stops execution and asks user for a one key input and returns it.
+        /// Pauses untill key is pressed. No message.
         /// </summary>
-        /// <param name="message">Message for the user</param>
-        /// <param name="clearScreen">If screen should clear before asking for input</param>
-        /// <returns>The one key input as a ConsoleKeyInfo</returns>
         public static void PauseForKey() => Misc.PauseForKey();
 
         /// <summary>
@@ -34,6 +31,13 @@ namespace Conzap.Tools
         /// Create and run a menu from all methods in type that uses the ConzapMenuItemAttribute attribute.
         /// </summary>
         public static void RunMenu(Type menuHolderType) => Misc.RunMenu(menuHolderType);
+
+
+        /// <summary>
+        /// Create and run a menu from all methods in type that uses the ConzapMenuItemAttribute attribute.
+        /// Use this overload with an already instanciated instance that has ConzapMenuItems.
+        /// </summary>
+        public static void RunMenu<T>(T instance) => Misc.RunMenu<T>(instance);
         #endregion
 
         #region PrintStuff
@@ -180,6 +184,11 @@ namespace Conzap.Tools
               => AskFor.AskForListChoice(items, keyFactory, returnValueFactory, header, message, errorMessage, clearScreen);
         #endregion
 
+
+        public static void ClearScreen()
+        {
+            ConzapToolHelpers.ClearScreen();
+        }
     }
     public enum ConsoleListStyle
     {

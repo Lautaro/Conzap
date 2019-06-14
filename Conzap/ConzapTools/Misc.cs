@@ -47,5 +47,23 @@ namespace Conzap.Tools
             }
             menu.Run();
         }
+
+        public static void RunMenu<T>(T instance)
+        {
+            var menu = new ConzapMenu();
+            var type = typeof(T);
+            var menuItemAttributedMethods = type.GetMethods().
+                Where(m => m.GetCustomAttributes(typeof(ConzapMenuItemAttribute), true).Count() > 0);
+
+            foreach (var menuItemMethod in menuItemAttributedMethods)
+            {
+                ConzapMenuItemAttribute metaData = menuItemMethod.GetCustomAttributes(typeof(ConzapMenuItemAttribute), true)[0] as ConzapMenuItemAttribute;
+                var index = metaData.Index;
+                var header = metaData.Header;
+                var delegateAction = (Action)menuItemMethod.CreateDelegate(typeof(Action), instance);
+                menu.Add(header, delegateAction);
+            }
+            menu.Run();
+        }
     }
 }

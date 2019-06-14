@@ -13,11 +13,16 @@ namespace Conzap
             Console.WriteLine(writeLine);
         }
 
+        internal static void ClearScreen()
+        {
+                Console.Clear();
+        }
+
         internal static void ClearScreen(bool clearScreen)
         {
             if (clearScreen)
             {
-                Console.Clear();
+                ClearScreen();
             }
         }
 

@@ -11,4 +11,3 @@ D:\Projects\Conzap\Conzap\bin\Debug\Conzap.pdb
 D:\Projects\Conzap\Conzap\obj\Debug\Conzap.csproj.CoreCompileInputs.cache
 D:\Projects\Conzap\Conzap\obj\Debug\Conzap.dll
 D:\Projects\Conzap\Conzap\obj\Debug\Conzap.pdb
-D:\Projects\Conzap\Conzap\obj\Debug\Conzap.csprojAssemblyReference.cache

@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fruit.cs" />
+    <Compile Include="HandleFruits.cs" />
     <Compile Include="HandlePersons.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectedConzapMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

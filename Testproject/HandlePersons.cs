@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Conzap;
 
 namespace ConsoleApp2
 {
@@ -38,6 +39,7 @@ namespace ConsoleApp2
             };
         }
 
+        [ConzapMenuItem("Create new person",0)]
         public void CreatePerson()
         {
             Console.Clear();
@@ -53,6 +55,7 @@ namespace ConsoleApp2
             Persons.Insert(0,person);
         }
 
+        [ConzapMenuItem("List all persons", 0)]
         public void ListPersons()
         {
             Console.Clear();
@@ -67,13 +70,5 @@ namespace ConsoleApp2
             
             ConzapTools.AskForKey();
         }
-    }
-
-    internal class Person
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public DateTime Year { get; set; }
-
     }
 }

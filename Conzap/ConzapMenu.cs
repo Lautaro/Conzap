@@ -39,7 +39,7 @@ namespace Conzap.Menu
             {
                 var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: MenuItems.Select(ami => ami.Title).ToArray());
                 Console.Clear();
-                MenuItems[input - 1].Callback();
+                MenuItems[input].Callback();
             }
         }
         /// <summary>

@@ -39,7 +39,29 @@ namespace ConsoleApp2
             // PrintMenuOfObjects();
 
             // TYPE PRINTER
-            TypePrinter();
+            //TypePrinter();
+
+            // MenuItemAttribute test
+            TestMenuItemAttribute();
+        }
+
+        private static void TestMenuItemAttribute()
+        {
+            var fruitHandler = new HandleFruits();
+            var personHandler = new HandlePersons();
+
+            while (true)
+            {
+                ConzapTools.RunMenu("CHOOSE AN OPTION: ",
+                    new ConzapMenuItem("Handle persons ", () => ConzapTools.RunMenu<HandlePersons>(personHandler)),
+                    new ConzapMenuItem("Handle fruits ", () => ConzapTools.RunMenu<HandleFruits>(fruitHandler))
+                    );
+            }
+        }
+
+        private static List<Fruit> GetFruits()
+        {
+            return HandleFruits.GetFruits();
         }
 
         private static void TypePrinter()
@@ -126,54 +148,7 @@ namespace ConsoleApp2
                 );
         }
 
-        private static void ReflectedConzapMenu()
-        {
-            ConzapTools.RunMenu(typeof(ReflectedConzapMenu));
-        }
 
-        private static List<Fruit> GetFruits()
-        {
-            return new List<Fruit>()
-             {
-                 new Fruit(3,"Apple", "Red shiny apples", Color.Red),
-                 new Fruit(10,"Melon", "Traditional big cucumber melon", Color.Green),
-                 new Fruit(9,"Lemon", "Yellow sour bitter lemon", Color.Yellow),
-                 new Fruit(23,"Grape", "Sweet tasty grapes", Color.Purple)
-             };
-        }
-    }
-
-    class Fruit
-    {
-        static int nextId;
-
-        static int GetNextId()
-        {
-            return nextId++;
-        }
-
-        [ConzapProperty("Identification")]
-        public int Id { get; set; }
-
-        [ConzapProperty("Amount of fruits")]
-        public int Quantity { get; set; }
-
-        [ConzapProperty("Fruit")]
-        public string Type { get; set; }
-
-        [ConzapProperty("About this fruit")]
-        public string Description { get; set; }
-
-        [ConzapProperty("Main color")]
-        public Color Color { get; set; }
-
-        public Fruit(int quantity, string type, string description, Color color)
-        {
-            Id = GetNextId();
-            Quantity = quantity;
-            Type = type;
-            Description = description;
-            Color = color;
-        }
+    
     }
 }

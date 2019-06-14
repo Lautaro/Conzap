@@ -144,14 +144,14 @@ namespace Conzap.Tools
             var fieldTitle = "";
             var fieldValue = "";
 
-            var attribute = property.GetCustomAttributes(typeof(ConzapPropertyAttribute), true).First() as ConzapPropertyAttribute;
+            var attribute = property.GetCustomAttributes(typeof(ConzapPropertyAttribute), true).FirstOrDefault() as ConzapPropertyAttribute;
             var ignoreThisFieldAttribute = attribute != null && attribute.Ignore == true;
 
             if (!ignoreThisFieldAttribute || !IgnoreThese.Any(name => name.ToLower() == property.Name.ToLower()))
             {
                 // 1. Use attribute title and value if UseAttribute is enabled 
                 // 2. The fields name is not on ignore list
-                if (UseAttributes)
+                if (UseAttributes && attribute != null)
                 {
                     fieldTitle = attribute.Title;
                     fieldValue = property.GetValue(item).ToString();
