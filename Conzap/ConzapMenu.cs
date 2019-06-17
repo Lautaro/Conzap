@@ -31,14 +31,22 @@ namespace Conzap.Menu
             {
                 Header = header;
             }
+            MenuItems.Insert(0,new ConzapMenuItem() { Title = "Quit", Value = "quit" });
         }
 
         public void Run()
         {
             while (true)
             {
-                var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: MenuItems.Select(ami => ami.Title).ToArray());
+                var listItems = MenuItems.Select(ami => ami.Title).ToList();
+                
+                var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: listItems.ToArray());
                 Console.Clear();
+                var chosenMenuItem = MenuItems[input];
+                if (chosenMenuItem.Value.ToLower() == "quit")
+                {
+                    break;
+                }
                 MenuItems[input].Callback();
             }
         }
