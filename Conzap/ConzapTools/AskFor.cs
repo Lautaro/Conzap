@@ -172,7 +172,6 @@ namespace Conzap.Tools
         ///Returns the the returnValue for the chosen item chosen.
         /// </summary>
         /// <param name="items">Collection of T. </param>
-        /// <param name="items">Collection of T. </param>
         /// <param name="keyFactory">How to get the key</param>
         /// <param name="lowestNr">Lowest accepted number</param>
         /// <param name="highestNumber">Highest accepted number</param>

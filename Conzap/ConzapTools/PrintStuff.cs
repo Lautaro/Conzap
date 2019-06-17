@@ -1,4 +1,5 @@
 ﻿using Conzap;
+using Conzap.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,27 +62,62 @@ namespace Conzap.Tools
         {
             foreach (var item in objects)
             {
-                foreach (var printThis in printThese)
-                {
-                    PrintLine(printThis.Label + printThis.PrintThis(item), null);
-                }
-
-              Misc.SkipLines(1);
+                PrintObject<T>(printThese, item);
+                Misc.SkipLines(1);
             }
 
             Misc.PauseForKey();
         }
 
-        public static void PrintObject<T>(this IEnumerable<ConzapPrintThis<T>> printThese, T item)
+        public static void PrintObjectDetailsList<T>(this IEnumerable<ConzapPrintThis<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
         {
-        
-                foreach (var printThis in printThese)
+            var stringList = objects.Select(o => menuItemTitle(o)).ToList();
+            stringList.Insert(0, "Quit");
+
+            while (true)
+            {
+                var chosenIndex = AskFor.AskForListChoice(stringList.ToArray());
+                if (chosenIndex == 0)
                 {
-                    PrintLine(printThis.Label + printThis.PrintThis(item), null);
+                    return;
                 }
 
-            Misc.SkipLines(1);
-            Misc.PauseForKey();
+                var item = objects.ToArray()[chosenIndex];
+
+                PrintObject<T>(printThese, item);
+
+                Misc.PauseForKey();
+            }
+        }
+
+        public static void PrintObjectDetailsList<T>(IEnumerable<T> objects, Func<T, string> menuItemTitle)
+        {
+            var stringList = objects.Select(o => menuItemTitle(o)).ToList();
+            stringList.Insert(0, "Quit");
+
+            while (true)
+            {
+                var chosenIndex = AskFor.AskForListChoice(stringList.ToArray());
+                if (chosenIndex == 0)
+                {
+                    return;
+                }
+
+                var item = objects.ToArray()[chosenIndex];
+                new ConzapTypePrinter<T>(new List<T>() { item });
+                
+
+                Misc.PauseForKey();
+            }
+        }
+
+        public static void PrintObject<T>(this IEnumerable<ConzapPrintThis<T>> printThese, T item)
+        {
+
+            foreach (var printThis in printThese)
+            {
+                PrintLine(printThis.Label + printThis.PrintThis(item), null);
+            }
         }
     }
 }

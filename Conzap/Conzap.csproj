@@ -50,7 +50,7 @@
     <Compile Include="ConzapObjectPrinter.cs" />
     <Compile Include="ConzapPrintThis.cs" />
     <Compile Include="ConzapPropertyAttribute.cs" />
-    <Compile Include="ConzapToolHelpers.cs" />
+    <Compile Include="ConzapTools\ConzapToolHelpers.cs" />
     <Compile Include="ConzapTools\AskFor.cs" />
     <Compile Include="ConzapTools\Misc.cs" />
     <Compile Include="ConzapTools\PrintStuff.cs" />
@@ -60,6 +60,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="ConzapSNK.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ToDO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

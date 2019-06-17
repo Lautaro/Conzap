@@ -37,9 +37,9 @@ namespace ConsoleApp2
         public void ListFruit()
         {
             ConzapTools.ClearScreen();
-           var menu = new ConzapTypePrinter<Fruit>(Fruits);
-            menu.Run();
-            ConzapTools.AskForKey();
+
+            ConzapTools.PrintObjectDetailsList<Fruit>(Fruits,f => f.Type  );
+ 
         }
 
         public static List<Fruit> GetFruits()

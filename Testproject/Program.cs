@@ -88,9 +88,9 @@ namespace ConsoleApp2
             var fruits = GetFruits();
 
             new ConzapObjectPrinter<Fruit>(fruits).
-                Add("Fruit type: ", f => f.Type + $" ({f.Id})").
-                Add("Description: ", f => f.Description).
-                Add("Quantity: ", f => f.Quantity.ToString()).
+                //Add("Fruit type: ", f => f.Type + $" ({f.Id})").
+                //Add("Description: ", f => f.Description).
+                //Add("Quantity: ", f => f.Quantity.ToString()).
                 Run();
         }
 

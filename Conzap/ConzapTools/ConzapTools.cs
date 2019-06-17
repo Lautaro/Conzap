@@ -67,6 +67,41 @@ namespace Conzap.Tools
         /// <param name="clearScreen">Should screen clear before printing?</param>
         public static void PrintLine(string printLine, string waitMessage = "Any key to continue", bool clearScreen = false)
             => PrintStuff.PrintLine(printLine, waitMessage, clearScreen);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="printThese"></param>
+        /// <param name="objects"></param>
+        public static void PrintObjectList<T>(this IEnumerable<ConzapPrintThis<T>> printThese, IEnumerable<T> objects) 
+            => PrintStuff.PrintObjectList(printThese, objects);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="printThese"></param>
+        /// <param name="objects"></param>
+        /// <param name="menuItemTitle"></param>
+        public static void PrintObjectDetailsList<T>(this IEnumerable<ConzapPrintThis<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
+        {
+            PrintStuff.PrintObjectDetailsList(printThese, objects, menuItemTitle);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="printThese"></param>
+        /// <param name="objects"></param>
+        /// <param name="menuItemTitle"></param>
+        public static void PrintObjectDetailsList<T>(IEnumerable<T> objects, Func<T, string> menuItemTitle)
+        {
+            PrintStuff.PrintObjectDetailsList(objects, menuItemTitle);
+        }
+
         #endregion
 
         #region AskFor

@@ -1,0 +1,13 @@
+﻿
+
+TO DO 
+
+New features
+------------
+Add attribute for classes to make them a contained menu with methods as menu items
+
+
+ConzapObjectPrinter
+-------------------
+
+1. Print simple properties that have no ConzapMenuItemAttribute

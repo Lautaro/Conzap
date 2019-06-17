@@ -12,7 +12,7 @@ namespace ConsoleApp2
             return nextId++;
         }
 
-        [ConzapProperty("Identification")]
+       [ConzapProperty("Identification")]
         public int Id { get; set; }
 
         [ConzapProperty("Amount of fruits")]

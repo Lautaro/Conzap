@@ -69,23 +69,23 @@ namespace Conzap.Tools
                 throw new Exception("Objects cant be null. Specify a collection of T that should be printed.");
 
             }
-            PrintThese.PrintObjectList<T>(Objects);
+         PrintStuff.PrintObjectList(PrintThese ,Objects);
         }
     }
 
     public class ConzapTypePrinter<T>
     {
-        public bool UseAttributes { get; set; }
-        public bool UseReflection { get; set; }
+        public bool IgnoreAllAttributes { get; set; }
+        public bool AllowPropertiesWithoutAttribute { get; set; }
         public bool UseCustomFields { get; set; }
         public List<T> Objects { get; set; }
         public List<string> IgnoreThese { get; set; } = new List<string>();
         public List<ConzapPrintThis<T>> CustomFields { get; set; }
 
-        public ConzapTypePrinter(List<T> objects, bool useAttribute = true, bool useReflection = false, bool useCustomFields = true)
+        public ConzapTypePrinter(List<T> objects, bool ignoreAllAttributes = false, bool allowPropertiesWithoutAttribute = false, bool useCustomFields = true)
         {
-            UseAttributes = useAttribute;
-            UseReflection = useReflection;
+            IgnoreAllAttributes = ignoreAllAttributes;
+            AllowPropertiesWithoutAttribute = allowPropertiesWithoutAttribute;
             UseCustomFields = useCustomFields;
             Objects = objects;
         }
@@ -151,7 +151,7 @@ namespace Conzap.Tools
             {
                 // 1. Use attribute title and value if UseAttribute is enabled 
                 // 2. The fields name is not on ignore list
-                if (UseAttributes && attribute != null)
+                if (!IgnoreAllAttributes && attribute != null)
                 {
                     fieldTitle = attribute.Title;
                     fieldValue = property.GetValue(item).ToString();
@@ -161,7 +161,7 @@ namespace Conzap.Tools
                 // 1. Reflection is enabled 
                 // 2. There is no IgnoreAttribute 
                 // 3. The fields name is not on ignore list
-                if (UseReflection && !UseAttributes)
+                if (AllowPropertiesWithoutAttribute )
                 {
                     fieldTitle = property.Name;
                     fieldValue = property.GetValue(item).ToString();

@@ -43,7 +43,8 @@ namespace Conzap.Menu
                 var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: listItems.ToArray());
                 Console.Clear();
                 var chosenMenuItem = MenuItems[input];
-                if (chosenMenuItem.Value.ToLower() == "quit")
+                var value = chosenMenuItem.Value;
+                if (value == "quit")
                 {
                     break;
                 }
