@@ -46,8 +46,7 @@
     <Compile Include="Conzap.Menu\ConzapMenuItem.cs" />
     <Compile Include="Conzap.Menu\ConzapMenuItemAttribute.cs" />
     <Compile Include="Conzap.Menu\ConzapObjectMenu.cs" />
-    <Compile Include="Conzap.ObjectPrinting\ConzapObjectPrinter.cs" />
-    <Compile Include="Conzap.ObjectPrinting\ConzapPrintThis.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ObjectPrinterField.cs" />
     <Compile Include="Conzap.ObjectPrinting\ConzapPropertyAttribute.cs" />
     <Compile Include="Conzap.ObjectPrinting\ObjectPrinter.cs" />
     <Compile Include="Conzap.Tools\ConzapToolHelpers.cs" />
@@ -56,6 +55,7 @@
     <Compile Include="Conzap.Tools\PrintStuff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Conzap.Tools\ConzapTools.cs" />
+    <Compile Include="ViewStyling\Header.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

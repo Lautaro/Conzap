@@ -1,5 +1,6 @@
 ﻿using Conzap;
 using Conzap.Menu;
+using Conzap.ObjectPrinting;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,9 +38,10 @@ namespace ConsoleApp2
         public void ListFruit()
         {
             ConzapTools.ClearScreen();
-
-            ConzapTools.PrintObjectDetailsList<Fruit>(Fruits,f => f.Type  );
- 
+            ConzapTools.PrintObjects(Fruits)
+                .Configure(ObjectPrinterOptions.UseOnlyCustomFields)
+                .ItemHeadingFactory(f => f.Type)
+                .Print();
         }
 
         public static List<Fruit> GetFruits()

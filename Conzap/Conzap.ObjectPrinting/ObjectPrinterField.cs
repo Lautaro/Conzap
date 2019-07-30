@@ -2,7 +2,7 @@
 
 namespace Conzap.ObjectPrinting
 {
-    public class ObjectPrinterField<T>
+    internal class ObjectPrinterField<T>
     {
         public string Label { get; set; }
         public Func<T, string> PrintThis { get; set; }

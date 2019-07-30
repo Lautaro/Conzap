@@ -69,39 +69,10 @@ namespace Conzap
         public static void PrintLine(string printLine, string waitMessage = "Any key to continue", bool clearScreen = false)
             => PrintStuff.PrintLine(printLine, waitMessage, clearScreen);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="printThese"></param>
-        /// <param name="objects"></param>
-        public static void PrintObjectList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects) 
-            => PrintStuff.PrintObjectList(printThese, objects);
+        public static ObjectPrinter<T> PrintObject<T>(T objectToBePrinted) => PrintStuff.PrintObject(objectToBePrinted);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="printThese"></param>
-        /// <param name="objects"></param>
-        /// <param name="menuItemTitle"></param>
-        public static void PrintObjectDetailsList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
-        {
-            PrintStuff.PrintObjectDetailsList(printThese, objects, menuItemTitle);
-        }
+        public static ObjectPrinter<T> PrintObjects<T>(List<T> objectsToBePrinted) => PrintStuff.PrintObjects(objectsToBePrinted);
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="printThese"></param>
-        /// <param name="objects"></param>
-        /// <param name="menuItemTitle"></param>
-        public static void PrintObjectDetailsList<T>(IEnumerable<T> objects, Func<T, string> menuItemTitle)
-        {
-            PrintStuff.PrintObjectDetailsList(objects, menuItemTitle);
-        }
 
         #endregion
 
@@ -133,7 +104,7 @@ namespace Conzap
         /// <param name="modifier">Modifies the result. Used to handle zero based indexes</param>
         /// <returns>the parsed input as int</returns>
         public static int AskForInt(string message, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false, int modifier = 0)
-        => AskFor.AskForInt(message, lowestNr, highestNumber, errorMessage, clearScreen, modifier);
+        => Choose.ChooseInt(message, lowestNr, highestNumber, errorMessage, clearScreen, modifier);
 
         /// <summary>
         /// Stops execution and asks user for input.
@@ -141,7 +112,7 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the input as string</returns>
-        public static string AskForString(string message, bool clearScreen = false) => AskFor.AskForString(message, clearScreen);
+        public static string AskForString(string message, bool clearScreen = false) => Choose.ChooseString(message, clearScreen);
 
         /// <summary>
         /// Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
@@ -151,7 +122,7 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForListChoice(params string[] menuItems) => AskFor.AskForListChoice(menuItems);
+        public static int AskForListChoice(params string[] menuItems) => Choose.ChooseFromList(menuItems);
 
         /// <summary>
         ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
@@ -160,7 +131,7 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="menuItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForListChoice(string message, params string[] menuItems) => AskFor.AskForListChoice(message, menuItems);
+        public static int AskForListChoice(string message, params string[] menuItems) => Choose.ChooseFromList(message, menuItems);
 
         /// <summary>
         ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
@@ -173,7 +144,7 @@ namespace Conzap
         /// <param name="listItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
         public static int AskForListChoice(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] listItems)
-            => AskFor.AskForListChoice(header, message, errorMessage, clearScreen, listItems);
+            => Choose.ChooseFromList(header, message, errorMessage, clearScreen, listItems);
 
         /// <summary>
         ///Prints a list of the keys in a KeyValuePair collection and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
@@ -187,7 +158,7 @@ namespace Conzap
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>the parsed input as type T</returns>
         public static T AskForListChoice<T>(IEnumerable<KeyValuePair<string, T>> items, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
-            => AskFor.AskForListChoice(items, header, message, errorMessage, clearScreen);
+            => Choose.ChooseFromList(items, header, message, errorMessage, clearScreen);
 
         /// <summary>
         ///Prints a list of the items in collection of T and asks user to choose one of the items. 
@@ -202,7 +173,7 @@ namespace Conzap
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>The chosen item of type T</returns>
         public static T AskForListChoice<T>(IEnumerable<T> items, Func<T, string> keyFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
-            => AskFor.AskForListChoice(items, keyFactory, header, message, errorMessage, clearScreen);
+            => Choose.ChooseFromList(items, keyFactory, header, message, errorMessage, clearScreen);
 
         /// <summary>
         ///Prints a list of the items in collection of T and asks user to choose one of the items. 
@@ -217,7 +188,7 @@ namespace Conzap
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>The chosen item of type T</returns>
         public static string AskForListChoice<T>(IEnumerable<T> items, Func<T, string> keyFactory, Func<T, string> returnValueFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
-              => AskFor.AskForListChoice(items, keyFactory, returnValueFactory, header, message, errorMessage, clearScreen);
+              => Choose.ChooseFromList(items, keyFactory, returnValueFactory, header, message, errorMessage, clearScreen);
         #endregion
 
 

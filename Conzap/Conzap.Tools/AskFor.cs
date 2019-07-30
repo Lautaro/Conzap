@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Conzap
 {
-    internal static class AskFor
+    internal static class Choose
     {
         static string NL = System.Environment.NewLine;
 
@@ -17,7 +17,7 @@ namespace Conzap
         /// <param name="message">Message for the user</param>
         /// <param name="clearScreen">If screen should clear before asking for input</param>
         /// <returns>The one key input as a ConsoleKeyInfo</returns>
-        public static ConsoleKeyInfo AskForKey(string message = "Press any key to continue...", bool clearScreen = false)
+        public static ConsoleKeyInfo ChooseKey(string message = "Press any key to continue...", bool clearScreen = false)
         {
             ConzapToolHelpers.ClearScreen(clearScreen);
 
@@ -30,13 +30,13 @@ namespace Conzap
         /// <summary>
         /// Stops execution and asks user for a number. If input doesnt parse to int the user will be asked again.
         /// </summary>
-        /// <param name="message">Message displayed on screen when asking for input</param>
+        /// <param name="headingMessage">Message displayed on screen when asking for input</param>
         /// <param name="lowestNr">Lowest accepted number</param>
         /// <param name="highestNumber">Highest accepted number</param>
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForInt(string message, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false, int modifier = 0)
+        public static int ChooseInt(string headingMessage, int lowestNr = 1, int highestNumber = 9999999, string errorMessage = "Invalid number...", bool clearScreen = false, int modifier = 0)
         {
             var singleDigit = false;
             if (highestNumber < 10)
@@ -51,11 +51,11 @@ namespace Conzap
                 string input = "";
                 if (singleDigit)
                 {
-                    input = AskForKey(message).KeyChar.ToString();
+                    input = ChooseKey(headingMessage).KeyChar.ToString();
                 }
                 else
                 {
-                    input = AskForString(message);
+                    input = ChooseString(headingMessage);
                 }
 
                 if (int.TryParse(input, out int number))
@@ -66,17 +66,17 @@ namespace Conzap
                     }
                 }
 
-                message = NL + errorMessage;
+                headingMessage = NL + errorMessage;
             }
         }
-
+             
         /// <summary>
         /// Stops execution and asks user for input.
         /// </summary>
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the input as string</returns>
-        public static string AskForString(string message, bool clearScreen = false)
+        public static string ChooseString(string message, bool clearScreen = false)
         {
             ConzapToolHelpers.ClearScreen(clearScreen);
             ConzapToolHelpers.ConsoleWriteLine(message);
@@ -92,9 +92,9 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForListChoice(params string[] menuItems)
+        public static int ChooseFromList(params string[] menuItems)
         {
-            return AskForListChoice(listItems: menuItems, clearScreen: false);
+            return ChooseFromList(listItems: menuItems, clearScreen: false);
         }
 
         /// <summary>
@@ -104,9 +104,9 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="menuItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForListChoice(string message, params string[] menuItems)
+        public static int ChooseFromList(string message, params string[] menuItems)
         {
-            return AskForListChoice(message, "", "Choose an option...", true, menuItems);
+            return ChooseFromList(message, "", "Choose an option...", true, menuItems);
         }
 
         /// <summary>
@@ -119,12 +119,12 @@ namespace Conzap
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <param name="listItems">Collection of strings making the items in the menu</param>
         /// <returns>the parsed input as int</returns>
-        public static int AskForListChoice(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] listItems)
+        public static int ChooseFromList(string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true, params string[] listItems)
         {
             ConzapToolHelpers.ClearScreen(clearScreen);
             PrintStuff.PrintList(header, style: ConsoleListStyle.Numbers, menuItems: listItems);
 
-            var number = AskForInt(message, 1, listItems.Count(), modifier: -1);
+            var number = ChooseInt(message, 1, listItems.Count(), modifier: -1);
             return number;
         }
 
@@ -139,11 +139,11 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>the parsed input as type T</returns>
-        public static T AskForListChoice<T>(IEnumerable<KeyValuePair<string, T>> items, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        public static T ChooseFromList<T>(IEnumerable<KeyValuePair<string, T>> items, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
         {
             var titles = items.Select(kvp => kvp.Key).ToArray();
 
-            var index = AskForListChoice(listItems: titles, clearScreen: clearScreen);
+            var index = ChooseFromList(listItems: titles, clearScreen: clearScreen);
             return items.ToArray()[index].Value;
         }
 
@@ -159,11 +159,11 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>The chosen item of type T</returns>
-        public static T AskForListChoice<T>(IEnumerable<T> items, Func<T, string> keyFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        public static T ChooseFromList<T>(IEnumerable<T> items, Func<T, string> keyFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
         {
             var titles = items.Select(item => keyFactory(item)).ToArray();
 
-            var index = AskForListChoice(listItems: titles, clearScreen: clearScreen);
+            var index = ChooseFromList(listItems: titles, clearScreen: clearScreen);
             return items.ToArray()[index];
         }
 
@@ -178,11 +178,11 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>The chosen item of type T</returns>
-        public static string AskForListChoice<T>(IEnumerable<T> items, Func<T, string> keyFactory, Func<T, string> returnValueFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
+        public static string ChooseFromList<T>(IEnumerable<T> items, Func<T, string> keyFactory, Func<T, string> returnValueFactory, string header = "", string message = "Choose an option....", string errorMessage = "", bool clearScreen = true)
         {
             var titles = items.Select(item => keyFactory(item)).ToArray();
 
-            var index = AskForListChoice(listItems: titles, clearScreen: clearScreen);
+            var index = ChooseFromList(listItems: titles, clearScreen: clearScreen);
             return keyFactory(items.ToArray()[index]);
         }
 

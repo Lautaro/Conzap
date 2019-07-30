@@ -58,66 +58,17 @@ namespace Conzap
             }
         }
 
-        public static void PrintObjectList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects)
+        public static ObjectPrinter<T> PrintObject<T>(T objectToBePrinted)
         {
-            foreach (var item in objects)
-            {
-                PrintObject<T>(printThese, item);
-                Misc.SkipLines(1);
-            }
+            var objectPrinter = new ObjectPrinter<T>(new List<T>() { objectToBePrinted });
+            return objectPrinter;
 
-            Misc.PauseForKey();
         }
 
-        public static void PrintObjectDetailsList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
+        public static ObjectPrinter<T> PrintObjects<T>(List<T> objectsToBePrinted)
         {
-            var stringList = objects.Select(o => menuItemTitle(o)).ToList();
-            stringList.Insert(0, "Quit");
-
-            while (true)
-            {
-                var chosenIndex = AskFor.AskForListChoice(stringList.ToArray());
-                if (chosenIndex == 0)
-                {
-                    return;
-                } 
-
-                var item = objects.ToArray()[chosenIndex];
-
-                PrintObject<T>(printThese, item);
-
-                Misc.PauseForKey();
-            }
-        }
-
-        public static void PrintObjectDetailsList<T>(IEnumerable<T> objects, Func<T, string> menuItemTitle)
-        {
-            var stringList = objects.Select(o => menuItemTitle(o)).ToList();
-            stringList.Insert(0, "Quit");
-
-            while (true)
-            {
-                var chosenIndex = AskFor.AskForListChoice(stringList.ToArray());
-                if (chosenIndex == 0)
-                {
-                    return;
-                }
-
-                var item = objects.ToArray()[chosenIndex];
-                new ObjectPrinter<T>(new List<T>() { item });
-                
-
-                Misc.PauseForKey();
-            }
-        }
-
-        public static void PrintObject<T>(this IEnumerable<ObjectPrinterField<T>> printThese, T item)
-        {
-
-            foreach (var printThis in printThese)
-            {
-                PrintLine(printThis.Label + printThis.PrintThis(item), null);
-            }
+            var objectPrinter = new ObjectPrinter<T>( objectsToBePrinted );
+            return objectPrinter;
         }
     }
 }
