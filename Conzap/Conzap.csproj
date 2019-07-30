@@ -39,26 +39,27 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ConzapSNK.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Conzap.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConzapModule\ConzapModuleContainer.cs" />
-    <Compile Include="ConzapMenu.cs" />
-    <Compile Include="ConzapMenuItem.cs" />
-    <Compile Include="ConzapMenuItemAttribute.cs" />
-    <Compile Include="ConzapModule\IConsoleModule.cs" />
-    <Compile Include="ConzapObjectPrinter.cs" />
-    <Compile Include="ConzapPrintThis.cs" />
-    <Compile Include="ConzapPropertyAttribute.cs" />
-    <Compile Include="ConzapTools\ConzapToolHelpers.cs" />
-    <Compile Include="ConzapTools\AskFor.cs" />
-    <Compile Include="ConzapTools\Misc.cs" />
-    <Compile Include="ConzapTools\PrintStuff.cs" />
+    <Compile Include="Conzap.Menu\ConzapMenu.cs" />
+    <Compile Include="Conzap.Menu\ConzapMenuItem.cs" />
+    <Compile Include="Conzap.Menu\ConzapMenuItemAttribute.cs" />
+    <Compile Include="Conzap.Menu\ConzapObjectMenu.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ConzapObjectPrinter.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ConzapPrintThis.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ConzapPropertyAttribute.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ObjectPrinter.cs" />
+    <Compile Include="Conzap.Tools\ConzapToolHelpers.cs" />
+    <Compile Include="Conzap.Tools\AskFor.cs" />
+    <Compile Include="Conzap.Tools\Misc.cs" />
+    <Compile Include="Conzap.Tools\PrintStuff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConzapTools\ConzapTools.cs" />
+    <Compile Include="Conzap.Tools\ConzapTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Conzap.snk" />
     <None Include="ConzapSNK.pfx" />
   </ItemGroup>
   <ItemGroup>

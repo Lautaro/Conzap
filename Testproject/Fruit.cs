@@ -1,4 +1,4 @@
-﻿using Conzap;
+﻿using Conzap.ObjectPrinting;
 using System.Drawing;
 
 namespace ConsoleApp2
@@ -12,19 +12,19 @@ namespace ConsoleApp2
             return nextId++;
         }
 
-       [ConzapProperty("Identification")]
+       [ObjectPrinterProperty("-- Identification")]
         public int Id { get; set; }
 
-        [ConzapProperty("Amount of fruits")]
+        [ObjectPrinterProperty("-- Amount of fruits")]
         public int Quantity { get; set; }
 
-        [ConzapProperty("Fruit")]
+        [ObjectPrinterProperty("-- Fruit")]
         public string Type { get; set; }
 
-        [ConzapProperty("About this fruit")]
+        [ObjectPrinterProperty("-- About this fruit")]
         public string Description { get; set; }
 
-        [ConzapProperty("Main color")]
+        [ObjectPrinterProperty("-- Main color")]
         public Color Color { get; set; }
 
         public Fruit()

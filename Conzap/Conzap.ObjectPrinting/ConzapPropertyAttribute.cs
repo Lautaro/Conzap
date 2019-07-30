@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace Conzap
+namespace Conzap.ObjectPrinting
 {
     [AttributeUsage(AttributeTargets.Property| AttributeTargets.Field)]
-    public class ConzapPropertyAttribute : System.Attribute
+    public class ObjectPrinterPropertyAttribute : System.Attribute
     {
         public string Title { get; set; }
         public bool Ignore { get; set; }
 
-        public ConzapPropertyAttribute(bool ignore)
+        public ObjectPrinterPropertyAttribute(bool ignore)
         {
             Ignore = ignore;
         }
 
-        public ConzapPropertyAttribute(string title)
+        public ObjectPrinterPropertyAttribute(string title)
         {
             Title = title;
         }

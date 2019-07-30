@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Conzap
+namespace Conzap.Menu
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class ConzapMenuItemAttribute : System.Attribute

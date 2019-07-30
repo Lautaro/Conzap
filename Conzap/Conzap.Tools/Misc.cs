@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Conzap.Tools
+namespace Conzap
 {
     internal static class Misc
     {

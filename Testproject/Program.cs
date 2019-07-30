@@ -1,6 +1,6 @@
 ﻿using Conzap;
 using Conzap.Menu;
-using Conzap.Tools;
+using Conzap.ObjectPrinting;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,11 +13,24 @@ namespace ConsoleApp2
     class Program
     {
         static HandlePersons handlePersons = new HandlePersons();
-
+        static List<Fruit> fruit;
         static void Main(string[] args)
         {
+            fruit = GetFruits();
 
-            // Uncomment one of the options to se an example of Conzap
+            // OBJECT PRINTER
+
+            // 1. Pass type but no field information
+            ObjectPrinterOne();
+
+            // 2. Pass type and configure to ignore non attributed properties
+            ObjectPrinterTwo();
+
+            // 3. Pass type and add custom fields, ignore non attributed properties
+            ObjectPrinterThree();
+
+
+            #region old stuff
 
             // First example
             // ReflectedConzapMenu();
@@ -42,8 +55,38 @@ namespace ConsoleApp2
             //TypePrinter();
 
             // MenuItemAttribute test
-            TestMenuItemAttribute();
+            //TestMenuItemAttribute();
+            #endregion
         }
+
+        private static void ObjectPrinterTwo()
+        {
+          
+
+        }
+
+        private static void ObjectPrinterOne()
+        {
+            var op = new ObjectPrinter<Fruit>(fruit);
+            op.Print();
+        }
+
+        private static void ObjectPrinterThree()
+        {
+        }
+
+        #region old
+        //private static void Blä()
+        //{
+        //    var nutrientsPrinter = Conzap.ObjectPrinter<Nutrients>();
+
+        //    var fruitPrinter = Conzap.ObjectPrinter<Fruit>(MyObject);
+        //        .Field(x => x)
+        //        .Field(x => x)
+        //        .Field(x => x.list )
+        //        .Configure();
+
+        //}
 
         private static void TestMenuItemAttribute()
         {
@@ -67,8 +110,8 @@ namespace ConsoleApp2
         private static void TypePrinter()
         {
             var fruits = GetFruits();
-            var printer = new ConzapTypePrinter<Fruit>(fruits);
-            printer.Run();
+            var printer = new ObjectPrinter<Fruit>(fruits);
+            printer.Print();
 
         }
 
@@ -148,7 +191,6 @@ namespace ConsoleApp2
                 );
         }
 
-
-    
+        #endregion
     }
 }

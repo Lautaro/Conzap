@@ -1,12 +1,12 @@
 ﻿using Conzap;
-using Conzap.Tools;
+using Conzap.ObjectPrinting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Conzap.Tools
+namespace Conzap
 {
     internal static class PrintStuff
     {
@@ -58,7 +58,7 @@ namespace Conzap.Tools
             }
         }
 
-        public static void PrintObjectList<T>(this IEnumerable<ConzapPrintThis<T>> printThese, IEnumerable<T> objects)
+        public static void PrintObjectList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects)
         {
             foreach (var item in objects)
             {
@@ -69,7 +69,7 @@ namespace Conzap.Tools
             Misc.PauseForKey();
         }
 
-        public static void PrintObjectDetailsList<T>(this IEnumerable<ConzapPrintThis<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
+        public static void PrintObjectDetailsList<T>(this IEnumerable<ObjectPrinterField<T>> printThese, IEnumerable<T> objects, Func<T, string> menuItemTitle)
         {
             var stringList = objects.Select(o => menuItemTitle(o)).ToList();
             stringList.Insert(0, "Quit");
@@ -80,7 +80,7 @@ namespace Conzap.Tools
                 if (chosenIndex == 0)
                 {
                     return;
-                }
+                } 
 
                 var item = objects.ToArray()[chosenIndex];
 
@@ -104,14 +104,14 @@ namespace Conzap.Tools
                 }
 
                 var item = objects.ToArray()[chosenIndex];
-                new ConzapTypePrinter<T>(new List<T>() { item });
+                new ObjectPrinter<T>(new List<T>() { item });
                 
 
                 Misc.PauseForKey();
             }
         }
 
-        public static void PrintObject<T>(this IEnumerable<ConzapPrintThis<T>> printThese, T item)
+        public static void PrintObject<T>(this IEnumerable<ObjectPrinterField<T>> printThese, T item)
         {
 
             foreach (var printThis in printThese)
