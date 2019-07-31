@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Conzap;
 using Conzap.Menu;
+using Conzap.ObjectPrinting;
 
 namespace ConsoleApp2
 {
@@ -45,9 +46,9 @@ namespace ConsoleApp2
             var person = new Person();
 
             Console.WriteLine("CREATE NEW PERSON");
-            person.Name = ConzapTools.AskForString("Name: ");
-            person.Age = ConzapTools.AskForInt("Age: ", 0, 110);
-            var year = ConzapTools.AskForInt("Year: ", 1900, DateTime.Now.Year);
+            person.Name = ConzapTools.ChooseString("Name: ");
+            person.Age = ConzapTools.ChooseInt("Age: ", 0, 110);
+            var year = ConzapTools.ChooseInt("Year: ", 1900, DateTime.Now.Year);
             person.Year = new DateTime(year, now.Month, now.Day);
 
             Persons.Insert(0,person);
@@ -57,16 +58,15 @@ namespace ConsoleApp2
         public void ListPersons()
         {
             Console.Clear();
-            foreach (var person in Persons)
-            {
 
-                ConzapTools.PrintList(person.Name.ToUpper(),
-                    "Age: " + person.Age.ToString(),
-                    "Year: " + person.Year.ToString());
-                ConzapTools.SkipLines(2);
-            }
+            ConzapTools.PrintObjects(Persons)
+                .Configure(ObjectPrinterOptions.UseOnlyCustomFields)
+                .CustomField("", p => p.Name.ToUpper())
+                .CustomField("Age", p => p.Age.ToString())
+                .CustomField("Year", p => p.Year.ToString())
+                .Print();
             
-            ConzapTools.AskForKey();
+            ConzapTools.ChooseKey();
         }
     }
 }

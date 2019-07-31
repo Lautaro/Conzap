@@ -31,6 +31,7 @@ namespace Conzap.ObjectPrinting
 
         #region Public properties
         public List<T> Objects { get; set; } = new List<T>();
+        public ViewStyle Style { get; set; } = new ViewStyle();
   
         #endregion
 
@@ -42,17 +43,19 @@ namespace Conzap.ObjectPrinting
         #endregion
 
         #region Constructors
-        public ObjectPrinter(List<T> objects, bool useAttributes = true, bool useUnattributedProperties = true, bool useCustomFields = true)
+        public ObjectPrinter(List<T> objects, bool useAttributes = true, bool useUnattributedProperties = true, bool useOnlyCustomFields = false)
         {
             UseAttributes = useAttributes;
             UseUnattributedProperties = useUnattributedProperties;
+            UseOnlyCustomFields = useOnlyCustomFields;
             Objects = objects;
         }
 
-        public ObjectPrinter(T printObject, bool useAttributes = true, bool useUnattributedProperties = true, bool useCustomFields = true)
+        public ObjectPrinter(T printObject, bool useAttributes = true, bool useUnattributedProperties = true, bool useOnlyCustomFields = false)
         {
             UseAttributes = useAttributes;
             UseUnattributedProperties = useUnattributedProperties;
+            UseOnlyCustomFields = useOnlyCustomFields;
             Objects.Add(printObject);
         }
         #endregion
@@ -127,14 +130,16 @@ namespace Conzap.ObjectPrinting
             return this;
         }
 
-        public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric, string menuTitle = "Choose item to view")
+        public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric)
         {
+            ConzapToolHelpers.ClearScreen(Style.ClearScreen);
+            ConzapToolHelpers.PrintHeading(Style.HeadingStyle);
             var stringList = Objects.Select(o => objectTitleFabric(o)).ToList();
             stringList.Insert(0, "Quit");
 
             while (true)
             {
-                var chosenIndex = Choose.ChooseFromList(stringList.ToArray());
+                var chosenIndex = Choose.ChooseFromList(Style,stringList.ToArray());
                 if (chosenIndex == 0)
                 {
                     return this;
@@ -199,7 +204,7 @@ namespace Conzap.ObjectPrinting
             foreach (var item in parsedObjects)
             {
 
-                ConzapTools.PrintList("    ", item.Select(kvp => $"{kvp.Key} : {kvp.Value}").ToArray());
+                ConzapTools.PrintList(Style, item.Select(kvp => $"{kvp.Key} : {kvp.Value}").ToArray());
             }
 
             ConzapTools.PauseForKey();
@@ -242,6 +247,14 @@ namespace Conzap.ObjectPrinting
         #endregion
 
         #region Configure ObjectPrinter
+
+        public ObjectPrinter<T> ViewStyle(ViewStyle style)
+        {
+            Style = style;
+            return this;
+        }
+
+
         public ObjectPrinter<T> ItemHeadingStyle(HeadingStyle itemHeadingStyle)
         {
             _itemHeadingStyle = itemHeadingStyle;

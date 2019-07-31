@@ -15,7 +15,15 @@ namespace Conzap
 
         public static void PauseForKey()
         {
-            Console.ReadKey();
+            Console.ReadKey(true);
+        }
+
+        public static void PauseForKey(ConsoleKey key)
+        {
+            while (!(Console.KeyAvailable && Console.ReadKey(true).Key == key))
+            {
+                // do nothing
+            }
         }
 
         public static void SkipLines(int linesToSkip = 2)

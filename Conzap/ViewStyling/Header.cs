@@ -9,8 +9,9 @@ namespace Conzap.ViewStyling
     public class HeadingStyle
     {
         public int SkipLines { get; set; } = 0;
-        public string Text { get; set; } = "-";
-        public HeadingDecoration Decoration { get; set; } = HeadingDecoration.Underlined;
+        public string Decoration { get; set; } = "-";
+        public string Text { get; set; } = null;
+        public HeadingDecoration DecorationType { get; set; } = HeadingDecoration.Underlined;
     }
 
     public enum HeadingDecoration

@@ -1,6 +1,7 @@
 ﻿using Conzap;
 using Conzap.Menu;
 using Conzap.ObjectPrinting;
+using Conzap.ViewStyling;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,12 +25,12 @@ namespace ConsoleApp2
         public void CreateFruit()
         {
             ConzapTools.ClearScreen();
-            ConzapTools.PrintLine("CREATE NEW FRUIT", clearScreen: true);
+            ConzapTools.PrintLine("CREATE NEW FRUIT", new ViewStyle() { ClearScreen = true });
             var fruit = new Fruit();
 
-            fruit.Type = ConzapTools.AskForString("Type: ");
-            fruit.Description = ConzapTools.AskForString("Description: ");
-            fruit.Quantity = ConzapTools.AskForInt("Amount: ",0,100, errorMessage:"Must be between 0 and 100");
+            fruit.Type = ConzapTools.ChooseString("Type: ");
+            fruit.Description = ConzapTools.ChooseString("Description: ");
+            fruit.Quantity = ConzapTools.ChooseInt("Amount: ",0,100);
 
             Fruits.Add(fruit);
         }

@@ -1,4 +1,5 @@
 ﻿using Conzap;
+using Conzap.ViewStyling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace Conzap.Menu
     public class ConzapMenu
     {
         public List<ConzapMenuItem> MenuItems { get; set; }
-        public string Header { get; set; }
+        public ViewStyle ViewStyle { get; set; }
 
-        public ConzapMenu(string header = "Options", List<ConzapMenuItem> menuItems = null)
+        public ConzapMenu(string heading = "Options", List<ConzapMenuItem> menuItems = null)
         {
             if (menuItems != null && menuItems.Count > 0)
             {
@@ -26,11 +27,11 @@ namespace Conzap.Menu
             {
                 MenuItems = new List<ConzapMenuItem>();
             }
-            if (!string.IsNullOrEmpty(header))
+            if (!string.IsNullOrEmpty(heading))
             {
-                Header = header;
+                ViewStyle.HeadingStyle.Text = heading;
             }
-            MenuItems.Insert(0,new ConzapMenuItem() { Title = "Quit", Value = "quit" });
+            MenuItems.Insert(0,new ConzapMenuItem() { Title = ViewStyle.QuitItemTitle, Value = ViewStyle.QuitItemTitle });
         }
 
         public void Run()
@@ -39,7 +40,7 @@ namespace Conzap.Menu
             {
                 var listItems = MenuItems.Select(ami => ami.Title).ToList();
                 
-                var input = ConzapTools.AskForListChoice(Header, clearScreen: true, listItems: listItems.ToArray());
+                var input = ConzapTools.ChooseFromList(ViewStyle.HeadingStyle.Text, listItems.ToArray());
                 Console.Clear();
                 var chosenMenuItem = MenuItems[input];
                 var value = chosenMenuItem.Value;

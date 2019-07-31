@@ -1,5 +1,6 @@
 ﻿using Conzap;
 using Conzap.ObjectPrinting;
+using Conzap.ViewStyling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +13,15 @@ namespace Conzap
     {
         static string NL = System.Environment.NewLine;
 
-        public static void PrintList(string header, params string[] list)
-        {
-            PrintList(header, ConsoleListStyle.None, false, list);
-        }
-
-        public static void PrintList(string header = "", ConsoleListStyle style = ConsoleListStyle.Asterisk, bool clearScreen = false, params string[] menuItems)
-        {
-            ConzapToolHelpers.PrintIfNotEmpty(header);
+        public static void PrintList(ViewStyle style = null , params string[] menuItems)
+        {   
+            ConzapToolHelpers.PrintHeading(style.HeadingStyle);
 
             for (int i = 1; i <= menuItems.Length; i++)
             {
                 string item = menuItems[i - 1];
                 var listStyle = "";
-                switch (style)
+                switch (style.ListStyle)
                 {
                     case ConsoleListStyle.Numbers:
                         listStyle = i.ToString() + ". ";
@@ -47,15 +43,12 @@ namespace Conzap
             }
         }
 
-        public static void PrintLine(string printLine, string waitMessage = "Any key to continue", bool clearScreen = false)
+        public static void PrintLine(string printLine, ViewStyle style)
         {
-            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapToolHelpers.ClearScreen(style.ClearScreen);
             ConzapToolHelpers.ConsoleWriteLine(printLine);
 
-            if (ConzapToolHelpers.PrintIfNotEmpty(waitMessage))
-            {
-                Misc.PauseForKey();
-            }
+            ConzapToolHelpers.PrintPostViewWait(style);
         }
 
         public static ObjectPrinter<T> PrintObject<T>(T objectToBePrinted)

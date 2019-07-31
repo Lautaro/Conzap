@@ -1,6 +1,7 @@
 ﻿using Conzap;
 using Conzap.Menu;
 using Conzap.ObjectPrinting;
+using Conzap.ViewStyling;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -169,34 +170,10 @@ namespace ConsoleApp2
             //    Run();
         }
 
-        private static void AskForList()
-        {
-            while (true)
-            {
-                var options = GetFruits().ToDictionary(f => f.Type, f => f.Description);
-
-                var choice = ConzapTools.AskForListChoice<string>(options, clearScreen: true);
-
-                ConzapTools.PrintLine($"You chose: " + choice, clearScreen: true);
-            }
-        }
-
-        private static void AskForList2()
-        {
-            while (true)
-            {
-                var fruits = GetFruits();
-                var choice = ConzapTools.AskForListChoice<Fruit>(fruits, f => f.Description, f => f.Type, clearScreen: true);
-
-                ConzapTools.PrintLine(choice + " MMMM! Great choice :D", clearScreen: true);
-            }
-        }
-
         private static void InstantiateConzapMenu()
         {
             var menu = new ConzapMenu()
-            {
-                Header = "Handle Persons",
+            {   
                 MenuItems = new List<ConzapMenuItem>()
                 {
                     new ConzapMenuItem()
