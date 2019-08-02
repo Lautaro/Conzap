@@ -67,7 +67,7 @@ namespace Conzap
                 ConzapToolHelpers.ConsoleWriteLine($"{NL}{input} Not allowed. Chosse between {lowestNr}-{highestNumber}");
             }
         }
-             
+
         /// <summary>
         /// Stops execution and asks user for input.
         /// </summary>
@@ -78,6 +78,10 @@ namespace Conzap
         {
             var input = Console.ReadLine();
             return input;
+        }
+        public static int ChooseFromList(params string[] listItems)
+        {
+            return ChooseFromList(null, null, listItems);
         }
 
 
