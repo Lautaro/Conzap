@@ -38,9 +38,15 @@ namespace Conzap
             }
         }
 
+        internal static void ClearAndPrintHeading(ViewStyle style)
+        {
+            ClearScreen(style.ClearScreen);
+            PrintHeading(style.HeadingStyle); 
+        }
+
         internal static void PrintHeading(HeadingStyle style)
         {
-            if (style == null || style.Text == "")
+            if (style == null || string.IsNullOrEmpty(style.Text))
             {
                 return;
             }
@@ -56,6 +62,10 @@ namespace Conzap
             {
                 ConsoleWriteLine($"{new string(decorationChar, 3)} {style.Text}");
             }
+            else
+            {
+                ConsoleWriteLine($"{style.Text}");
+            }
 
             if (style.DecorationType == HeadingDecoration.Wrapped || style.DecorationType == HeadingDecoration.Underlined)
             {
@@ -67,6 +77,8 @@ namespace Conzap
 
         internal static void ConsoleWriteLine(string writeLine)
         {
+            if (string.IsNullOrEmpty(writeLine)) return;
+
             Console.WriteLine(writeLine);
         }
 

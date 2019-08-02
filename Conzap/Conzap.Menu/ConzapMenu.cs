@@ -14,23 +14,14 @@ namespace Conzap.Menu
     /// </summary>
     public class ConzapMenu
     {
-        public List<ConzapMenuItem> MenuItems { get; set; }
-        public ViewStyle ViewStyle { get; set; }
+        public List<ConzapMenuItem> MenuItems { get; set; } = new List<ConzapMenuItem>();
+        public ViewStyle ViewStyle { get; set; } = new ViewStyle();
 
-        public ConzapMenu(string heading = "Options", List<ConzapMenuItem> menuItems = null)
+        public ConzapMenu(ViewStyle style = null, List<ConzapMenuItem> menuItems = null)
         {
-            if (menuItems != null && menuItems.Count > 0)
-            {
-                MenuItems = menuItems;
-            }
-            else
-            {
-                MenuItems = new List<ConzapMenuItem>();
-            }
-            if (!string.IsNullOrEmpty(heading))
-            {
-                ViewStyle.HeadingStyle.Text = heading;
-            }
+            ViewStyle.ListStyle = ConsoleListStyle.Numbers;
+            ViewStyle = style ?? ViewStyle;
+            AddRange(menuItems);
             MenuItems.Insert(0,new ConzapMenuItem() { Title = ViewStyle.QuitItemTitle, Value = ViewStyle.QuitItemTitle });
         }
 
@@ -40,7 +31,7 @@ namespace Conzap.Menu
             {
                 var listItems = MenuItems.Select(ami => ami.Title).ToList();
                 
-                var input = ConzapTools.ChooseFromList(ViewStyle.HeadingStyle.Text, listItems.ToArray());
+                var input = ConzapTools.ChooseFromList(listItems.ToArray()) -1;
                 Console.Clear();
                 var chosenMenuItem = MenuItems[input];
                 var value = chosenMenuItem.Value;
@@ -65,53 +56,66 @@ namespace Conzap.Menu
         /// <summary>
         /// Add menuItem by providing header name and a parameter less method action delegate to call when item is selected. You can point to the method directly using lambda.
         /// </summary>        
-        public void Add(string header, Action callback)
+        public ConzapMenu Add(string heading, Action callback)
         {
-            var menuItem = new ConzapMenuItem(header, callback);
+            var menuItem = new ConzapMenuItem(heading, callback);
             if (menuItem != null)
             {
                 MenuItems.Add(menuItem);
             }
+
+            return this;
         }
 
         /// <summary>
         /// Add a whole list of menu items
         /// </summary>
-        public void AddRange(List<ConzapMenuItem> menuItemList)
+        public ConzapMenu AddRange(List<ConzapMenuItem> menuItemList)
         {
             if (menuItemList != null && menuItemList.Count > 0)
             {
                 MenuItems.AddRange(menuItemList);
             }
+            return this;
         }
 
         /// <summary>
         /// Add a whole range of menu items each separated by comma.
         /// </summary>
-        public void AddRange(params ConzapMenuItem[] menuItemList)
+        public ConzapMenu AddRange(params ConzapMenuItem[] menuItemList)
         {
             if (menuItemList != null && menuItemList.Length > 0)
             {
                 MenuItems.AddRange(menuItemList);
             }
+            return this;
         }
 
         /// <summary>
         /// Use to add one last MenuItem and then call Run()
         /// </summary>
-        public void AddAndRun(ConzapMenuItem menuItem = null)
+        public ConzapMenu AddAndRun(ConzapMenuItem menuItem = null)
         {
             Add(menuItem);
             Run();
+            return this;
         }
 
         /// <summary>
         /// Use to add range of MenuItems and then call Run()
         /// </summary>
-        public void AddAndRun(List<ConzapMenuItem> menuItemList = null)
+        public ConzapMenu AddAndRun(List<ConzapMenuItem> menuItemList = null)
         {
             AddRange(menuItemList);
             Run();
+            return this;
+        }
+
+        public ConzapMenu AddAndRun(string heading, Action callback)
+        {
+            Add(heading, callback);
+            Run();
+            return this;
         }
 
     }

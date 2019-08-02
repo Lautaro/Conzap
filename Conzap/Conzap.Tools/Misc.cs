@@ -1,4 +1,5 @@
 ﻿using Conzap.Menu;
+using Conzap.ViewStyling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace Conzap
             }
         }
 
-        public static void RunMenu(string Header, params ConzapMenuItem[] menuItems)
+        public static void RunMenu(ViewStyle style = null, params ConzapMenuItem[] menuItems)
         {
-            var menu = new ConzapMenu(Header, menuItems.ToList());
+            var menu = new ConzapMenu(style, menuItems.ToList());
             menu.Run();
         }
 

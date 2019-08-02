@@ -8,6 +8,17 @@ namespace Conzap.ViewStyling
 {
     public class ViewStyle
     {
+        public static ViewStyle New(string HeadingText = "", bool clearScreen = false)
+        {
+            var style = new ViewStyle()
+            {
+                ClearScreen = clearScreen
+            };
+
+            style.HeadingStyle.Text = HeadingText;
+
+            return style;
+        }
         public HeadingStyle HeadingStyle { get; set; } = new HeadingStyle();
         public bool ClearScreen { get; set; } = true;
         public string WaitMessage { get; set; } = null;
@@ -18,5 +29,28 @@ namespace Conzap.ViewStyling
         public string QuitItemTitle { get; set; } = "Quit";
         public string ErrorMessage { get; set; } = null;
 
+        public ViewStyle ClearScreenTrue()
+        {
+            ClearScreen = true;
+            return this;
+        }
+
+        public ViewStyle ClearScreenFalse()
+        {
+            ClearScreen = false;
+            return this;
+        }
+
+        public ViewStyle SetClearScreen(bool clearScreen)
+        {
+            ClearScreen = clearScreen;
+            return this;
+        }
+
+        public ViewStyle SetHeadingText(string text)
+        {
+            HeadingStyle.SetText(text);
+            return this;
+        }
     }
 }

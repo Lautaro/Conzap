@@ -12,6 +12,12 @@ namespace Conzap.ViewStyling
         public string Decoration { get; set; } = "-";
         public string Text { get; set; } = null;
         public HeadingDecoration DecorationType { get; set; } = HeadingDecoration.Underlined;
+
+        public HeadingStyle SetText(string text)
+        {
+            Text = text;
+            return this;
+        }
     }
 
     public enum HeadingDecoration

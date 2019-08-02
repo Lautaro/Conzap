@@ -59,8 +59,7 @@ namespace ConsoleApp2
         {
             Console.Clear();
 
-            ConzapTools.PrintObjects(Persons)
-                .Configure(ObjectPrinterOptions.UseOnlyCustomFields)
+            ConzapTools.PrintCustomObjects(Persons)
                 .CustomField("", p => p.Name.ToUpper())
                 .CustomField("Age", p => p.Age.ToString())
                 .CustomField("Year", p => p.Year.ToString())

@@ -18,7 +18,7 @@ namespace Conzap
         /// <param name="message">Message for the user</param>
         /// <param name="clearScreen">If screen should clear before asking for input</param>
         /// <returns>The one key input as a ConsoleKeyInfo</returns>
-        public static ConsoleKeyInfo ChooseKey(string promptMessage)
+        public static ConsoleKeyInfo ChooseKey(string promptMessage = null)
         {
             ConzapToolHelpers.ConsoleWriteLine(promptMessage);
 
@@ -35,8 +35,9 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the parsed input as int</returns>
-        public static int ChooseInt(string promptMessage, int lowestNr = 1, int highestNumber = 9999999)
+        public static int ChooseInt(string promptMessage = null, int lowestNr = 1, int highestNumber = 9999999)
         {
+            ConzapToolHelpers.ConsoleWriteLine(promptMessage);
             var singleDigit = false;
             if (highestNumber < 10)
             {
@@ -48,11 +49,11 @@ namespace Conzap
                 string input = "";
                 if (singleDigit)
                 {
-                    input = ChooseKey(promptMessage).KeyChar.ToString();
+                    input = ChooseKey().KeyChar.ToString();
                 }
                 else
                 {
-                    input = ChooseString(promptMessage);
+                    input = ChooseString();
                 }
 
                 if (int.TryParse(input, out int number))
@@ -73,35 +74,14 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the input as string</returns>
-        public static string ChooseString(string message, bool clearScreen = false)
+        public static string ChooseString()
         {
-            ConzapToolHelpers.ClearScreen(clearScreen);
-            ConzapToolHelpers.ConsoleWriteLine(message);
             var input = Console.ReadLine();
             return input;
         }
 
-        /// <summary>
-        ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
-        /// </summary>
-        /// <param name="message">Message displayed on screen when asking for input</param>
-        /// <param name="lowestNr">Lowest accepted number</param>
-        /// <param name="highestNumber">Highest accepted number</param>
-        /// <param name="errorMessage">Displayed if input does not parse to in</param>
-        /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
-        /// <param name="listItems">Collection of strings making the items in the menu</param>
-        /// <returns>the parsed input as int</returns>
-        public static int ChooseFromList(ViewStyle style, params string[] listItems)
-        {
-            ConzapToolHelpers.ClearScreen(style.ClearScreen);
-            ConzapToolHelpers.PrintHeading(style.HeadingStyle);
-            PrintStuff.PrintList(style, menuItems: listItems);
 
-            var number = ChooseInt($"> Choose between {1}-{listItems.Count()}", 1, listItems.Count());
-            return number;
-        }
-
-        public static int ChooseFromList(ViewStyle style, string promptMessage = null, params string[] listItems)
+        public static int ChooseFromList(ViewStyle style = null, string promptMessage = null, params string[] listItems)
         {
             if (promptMessage == null)
             {
@@ -149,7 +129,7 @@ namespace Conzap
         {
             var titles = items.Select(item => keyFactory(item)).ToArray();
 
-            var index = ChooseFromList(style, titles);
+            var index = ChooseFromList(titles);
             return items.ToArray()[index];
         }
     }

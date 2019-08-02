@@ -15,8 +15,6 @@ namespace Conzap
 
         public static void PrintList(ViewStyle style = null , params string[] menuItems)
         {   
-            ConzapToolHelpers.PrintHeading(style.HeadingStyle);
-
             for (int i = 1; i <= menuItems.Length; i++)
             {
                 string item = menuItems[i - 1];

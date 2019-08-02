@@ -27,12 +27,13 @@ namespace Conzap
         /// Skips amount of lines creating space. Defaults to 2 lines.
         /// </summary>
         public static void SkipLines(int linesToSkip = 2) => Misc.SkipLines(linesToSkip);
+        #endregion
 
-
+        #region Menu
         /// <summary>
         /// Provide a collection of MenuItems and run them directly. 
         /// </summary>
-        public static void RunMenu(string header, params ConzapMenuItem[] menuItems) => Misc.RunMenu(header, menuItems);
+        public static void RunMenu(string header, params ConzapMenuItem[] menuItems) => Misc.RunMenu(menuItems);
 
         /// <summary>
         /// Create and run a menu from all methods in type that uses the ConzapMenuItemAttribute attribute.
@@ -45,6 +46,21 @@ namespace Conzap
         /// Use this overload with an already instanciated instance that has ConzapMenuItems.
         /// </summary>
         public static void RunMenu<T>(T instance) => Misc.RunMenu<T>(instance);
+
+        public static ConzapMenu NewMenu()
+        {
+            return new ConzapMenu();
+        }
+
+        public static ConzapMenu NewMenu(ConzapMenuItem menuItem)
+        {
+            return new ConzapMenu(menuItems: new List<ConzapMenuItem>() { menuItem });
+        }
+
+        public static ConzapMenu NewMenu(List<ConzapMenuItem> menuItems)
+        {
+            return new ConzapMenu(menuItems: menuItems);
+        }
         #endregion
 
         #region PrintStuff
@@ -66,6 +82,11 @@ namespace Conzap
         public static ObjectPrinter<T> PrintCustomObjects<T>(List<T> objectsToBePrinted)
         {
             return PrintStuff.PrintObjects(objectsToBePrinted).Configure(ObjectPrinterOptions.UseOnlyCustomFields);
+        }
+
+        public static void PrintHeading(ViewStyle style)
+        {
+           ConzapToolHelpers.ClearAndPrintHeading(style);
         }
 
         #endregion
@@ -106,7 +127,7 @@ namespace Conzap
         /// <param name="message">Message displayed on screen when asking for input</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input?</param>
         /// <returns>the input as string</returns>
-        public static string ChooseString(string message, bool clearScreen = false) => Choose.ChooseString(message, clearScreen);
+        public static string ChooseString(string message, bool clearScreen = false) => Choose.ChooseString();
 
         /// <summary>
         /// Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
@@ -118,26 +139,7 @@ namespace Conzap
         /// <returns>the parsed input as int</returns>
         public static int ChooseFromList(params string[] menuItems)
         {
-            var style = new ViewStyle();
-
-            return Choose.ChooseFromList(style, menuItems);
-
-        }
-
-        /// <summary>
-        ///Prints a list and asks user to choose one of the items. If input doesnt parse to int the user will be asked again.
-        /// This overload clears screen before printing.
-        /// </summary>
-        /// <param name="promptMessage">Message displayed on screen when asking for input</param>
-        /// <param name="menuItems">Collection of strings making the items in the menu</param>
-        /// <returns>the parsed input as int</returns>
-        public static int ChooseFromList(string promptMessage, params string[] menuItems)
-        {
-            var style = new ViewStyle();
-            style.HeadingStyle.Text = promptMessage;
-
-            return Choose.ChooseFromList(style, menuItems);
-
+            return Choose.ChooseFromList(menuItems);
         }
 
         /// <summary>

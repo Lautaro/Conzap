@@ -139,7 +139,7 @@ namespace Conzap.ObjectPrinting
 
             while (true)
             {
-                var chosenIndex = Choose.ChooseFromList(Style,stringList.ToArray());
+                var chosenIndex = Choose.ChooseFromList(stringList.ToArray());
                 if (chosenIndex == 0)
                 {
                     return this;

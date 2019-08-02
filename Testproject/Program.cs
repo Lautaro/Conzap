@@ -34,33 +34,16 @@ namespace ConsoleApp2
             // Four();
 
             // 5. Print just one object
-            Five();
+            //Five();
 
             #region old stuff
+            InstantiateConzapMenu();
 
-            // First example
-            // ReflectedConzapMenu();
+            //PrintListOfObjects();
 
-            // Second example
-            // ConzapMenuWithDelegates();
+            //PrintMenuOfObjects();
+            
 
-            // Third example
-            // InstantiateConzapMenu(handlePersons);
-
-            // Fourth example
-            // AskForList2();
-
-            // Fifths example
-            // PrintListOfObjects();
-
-            //PrintListOfObjects2();
-
-            // PrintMenuOfObjects();
-
-            // TYPE PRINTER
-            //TypePrinter();
-
-            // MenuItemAttribute test
             //TestMenuItemAttribute();
             #endregion
         }
@@ -140,14 +123,6 @@ namespace ConsoleApp2
             return HandleFruits.GetFruits();
         }
 
-        private static void TypePrinter()
-        {
-            var fruits = GetFruits();
-            var printer = new ObjectPrinter<Fruit>(fruits);
-            printer.Print();
-
-        }
-
         private static void PrintMenuOfObjects()
         {
             while (true)
@@ -172,32 +147,10 @@ namespace ConsoleApp2
 
         private static void InstantiateConzapMenu()
         {
-            var menu = new ConzapMenu()
-            {   
-                MenuItems = new List<ConzapMenuItem>()
-                {
-                    new ConzapMenuItem()
-                    {
-                        Title = "Create person",
-                        Callback = () =>  handlePersons.CreatePerson()
-                    },
-                      new ConzapMenuItem()
-                    {
-                        Title = "List persons",
-                        Callback = () =>  handlePersons.ListPersons()
-                    }
-                }
-            };
-
-            menu.Run();
-        }
-
-        private static void ConzapMenuWithDelegates()
-        {
-            ConzapTools.RunMenu("Handle Persons",
-                new ConzapMenuItem("Create Person", () => handlePersons.CreatePerson()),
-                new ConzapMenuItem("List Persons", () => handlePersons.ListPersons())
-                );
+            ConzapTools.PrintHeading(ViewStyle.New("Menuuu", true)); 
+            ConzapTools.NewMenu()
+                .Add("Create person", () => handlePersons.CreatePerson())
+                .AddAndRun("List persons", () => handlePersons.ListPersons());
         }
 
         #endregion
