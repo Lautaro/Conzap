@@ -49,6 +49,7 @@
     <Compile Include="Conzap.ObjectPrinting\ObjectPrinterField.cs" />
     <Compile Include="Conzap.ObjectPrinting\ConzapPropertyAttribute.cs" />
     <Compile Include="Conzap.ObjectPrinting\ObjectPrinter.cs" />
+    <Compile Include="Conzap.ObjectPrinting\ObjectPrinterHelper.cs" />
     <Compile Include="Conzap.Tools\ConzapToolHelpers.cs" />
     <Compile Include="Conzap.Tools\AskFor.cs" />
     <Compile Include="Conzap.Tools\Misc.cs" />

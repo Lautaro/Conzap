@@ -30,12 +30,14 @@ namespace Conzap.ObjectPrinting
         #endregion
 
         #region Public properties
+        
         public List<T> Objects { get; set; } = new List<T>();
-        public List<ObjectPrinter<object>> NestedTypes { get; set; } = new List<ObjectPrinter<object>>();
-  
+        public List<ObjectPrinter<object>> NesteObjectPrinters { get; set; } = new List<ObjectPrinter<object>>();
+
         #endregion
 
         #region Private properties
+        public Type TypeOfThis { get; }
         List<PropertyInfo> IgnoreThese { get; set; } = new List<PropertyInfo>();
         Func<T, string> _itemHeadingFactory;
         List<ObjectPrinterField<T>> CustomFields { get; set; } = new List<ObjectPrinterField<T>>();
@@ -48,6 +50,7 @@ namespace Conzap.ObjectPrinting
             UseUnattributedProperties = useUnattributedProperties;
             UseOnlyCustomFields = useOnlyCustomFields;
             Objects = objects;
+            TypeOfThis = typeof(T);
         }
 
         public ObjectPrinter(T printObject, bool useAttributes = true, bool useUnattributedProperties = true, bool useOnlyCustomFields = false)
@@ -76,7 +79,7 @@ namespace Conzap.ObjectPrinting
         #region IgnoreProperty
         public ObjectPrinter<T> IgnoreProperty(Expression<Func<T, object>> ignoreProprty)
         {
-           var propertyInfo =  Misc.GetPropertyFromExpression<T>(ignoreProprty);
+           var propertyInfo =  Helper.GetPropertyFromExpression<T>(ignoreProprty);
             if (!IgnoreListContains(propertyInfo))
             {
                 IgnoreThese.Add(propertyInfo);
@@ -92,7 +95,7 @@ namespace Conzap.ObjectPrinting
 
         public ObjectPrinter<T> RemoveFromIgnoreList(Expression<Func<T, object>> ignoreProprty)
         {
-            var propertyInfo = Misc.GetPropertyFromExpression<T>(ignoreProprty);
+            var propertyInfo = Helper.GetPropertyFromExpression<T>(ignoreProprty);
 
             IgnoreThese.RemoveAll(i => i.Name == propertyInfo.Name);
             return this;
@@ -129,27 +132,27 @@ namespace Conzap.ObjectPrinting
             return this;
         }
 
-        public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric, string heading = null, bool clearScreen = true)
-        {
-            ConzapToolHelpers.ClearScreen(clearScreen);
-            ConzapToolHelpers.PrintHeading(heading);
-            var stringList = Objects.Select(o => objectTitleFabric(o)).ToList();
-            stringList.Insert(0, "Quit");
+        //public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric, string heading = null, bool clearScreen = true)
+        //{
+        //    ConzapToolHelpers.ClearScreen(clearScreen);
+        //    ConzapToolHelpers.PrintHeading(heading);
+        //    var stringList = Objects.Select(o => objectTitleFabric(o)).ToList();
+        //    stringList.Insert(0, "Quit");
 
-            while (true)
-            {
-                var chosenIndex = Choose.ChooseFromList(stringList.ToArray());
-                if (chosenIndex == 0)
-                {
-                    return this;
-                }
+        //    while (true)
+        //    {
+        //        var chosenIndex = Choose.ChooseFromList(stringList.ToArray());
+        //        if (chosenIndex == 0)
+        //        {
+        //            return this;
+        //        }
 
-                var item = Objects.ToArray()[chosenIndex];
-                new ObjectPrinter<T>(new List<T>() { item }).Print();
+        //        var item = Objects.ToArray()[chosenIndex];
+        //        new ObjectPrinter<T>(new List<T>() { item }).Print();
 
-                Misc.PauseForKey();
-            }
-        }
+        //        Misc.PauseForKey();
+        //    }
+        //}
 
         /// <summary>
         /// Prints all objects
@@ -159,7 +162,7 @@ namespace Conzap.ObjectPrinting
             var parsedObjects = new List<Dictionary<string, string>>();
             var type = typeof(T);
 
-
+            
             // ADD FIELDS FOR EACH ITEM
             foreach (var item in ObjectsToPrint.Select(o => (T)o))
             {
@@ -173,6 +176,8 @@ namespace Conzap.ObjectPrinting
                 }
 
                 // CHECK FOR TYPE DEFINITION
+                var itemType = Helper.GetListType(item.GetType());
+                var exists = 
 
                 // IF HAS TYPE DEFINITION RECURSIVE PRINT AND EXIT TO NEST ITEM
 
@@ -265,8 +270,25 @@ namespace Conzap.ObjectPrinting
         }
         #endregion
 
+        #region 
+        bool HasObjectPrinterForType (Type T)
+        {
+            foreach (var op in NesteObjectPrinters)
+            {
+                var type = op.GetType().GetGenericArguments()[0];
+
+                if (T == type)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
         #region Configure ObjectPrinter
-        
+
         public ObjectPrinter<T> ItemHeadingFactory(Func<T, string> itemHeadingFactory)
         {
             _itemHeadingFactory = itemHeadingFactory;
