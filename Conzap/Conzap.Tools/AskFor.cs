@@ -20,7 +20,7 @@ namespace Conzap
         /// <returns>The one key input as a ConsoleKeyInfo</returns>
         public static ConsoleKeyInfo ChooseKey(string promptMessage = null)
         {
-            ConzapToolHelpers.ConsoleWriteLine(promptMessage);
+            ConzapToolHelpers.WriteLine(promptMessage);
 
             var input = Console.ReadKey();
             return input;
@@ -37,7 +37,7 @@ namespace Conzap
         /// <returns>the parsed input as int</returns>
         public static int ChooseInt(string promptMessage = null, int lowestNr = 1, int highestNumber = 9999999)
         {
-            ConzapToolHelpers.ConsoleWriteLine(promptMessage);
+            ConzapToolHelpers.WritePrompt(promptMessage);
             var singleDigit = false;
             if (highestNumber < 10)
             {
@@ -64,7 +64,7 @@ namespace Conzap
                     }
                 }
 
-                ConzapToolHelpers.ConsoleWriteLine($"{NL}{input} Not allowed. Chosse between {lowestNr}-{highestNumber}");
+                ConzapToolHelpers.WriteLine($"{NL}{input} Not allowed. Chosse between {lowestNr}-{highestNumber}");
             }
         }
 
@@ -81,18 +81,17 @@ namespace Conzap
         }
         public static int ChooseFromList(params string[] listItems)
         {
-            return ChooseFromList(null, null, listItems);
+            return ChooseFromList(null, listItems);
         }
 
-
-        public static int ChooseFromList(ViewStyle style = null, string promptMessage = null, params string[] listItems)
+        public static int ChooseFromList(string promptMessage = null, params string[] listItems)
         {
             if (promptMessage == null)
             {
                 promptMessage = $"> Choose between {1}-{listItems.Count()}";
             }
             
-            PrintStuff.PrintList(style, menuItems: listItems);
+            PrintStuff.PrintList(listItems);
 
             var number = ChooseInt(promptMessage, 1, listItems.Count());
             return number;
@@ -113,7 +112,7 @@ namespace Conzap
         {
             var titles = items.Select(kvp => kvp.Key).ToArray();
 
-            var index = ChooseFromList(listItems: titles, style: style);
+            var index = ChooseFromList(titles);
             return items.ToArray()[index].Value;
         }
 

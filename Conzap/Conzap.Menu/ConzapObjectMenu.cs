@@ -14,21 +14,21 @@ namespace Conzap.Menu
         public ViewStyle Style { get; set; } = new ViewStyle();
         public IEnumerable<T> Objects { get; set; }
         internal List<ObjectPrinterField<T>> PrintThese { get; set; } = new List<ObjectPrinterField<T>>();
+        public string Heading { get; set; }
 
         public ConzapObjectMenu(IEnumerable<T> objects, Func<T, string> titleFactory, string heading = "", string message = "", 
-            string errorMessage = "Not an option. Try again..", bool clearSreen = false) 
+            string errorMessage = "Not an option. Try again..") 
         {
-            Style.HeadingStyle.Text = heading;
+            Heading = heading;
             Style.ErrorMessage = errorMessage;
-            Style.ClearScreen = clearSreen;
             TitleFactory = titleFactory;
             Objects = objects;
         }
 
-        public void Print()
+        public void Print(bool clearScreen = true)
         {
             var item = ConzapTools.ChooseFromList<T>(Objects, TitleFactory, Style);
-            Conzap.ConzapToolHelpers.ClearScreen(Style.ClearScreen);
+            Conzap.ConzapToolHelpers.ClearScreen(clearScreen);
             ConzapTools.PrintObject<T>(item);
 
         }

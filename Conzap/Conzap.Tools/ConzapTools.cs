@@ -47,19 +47,19 @@ namespace Conzap
         /// </summary>
         public static void RunMenu<T>(T instance) => Misc.RunMenu<T>(instance);
 
-        public static ConzapMenu NewMenu()
+        public static ConzapMenu NewMenu(string heading = null)
         {
-            return new ConzapMenu();
+            return new ConzapMenu().SetHeading(heading);
         }
 
-        public static ConzapMenu NewMenu(ConzapMenuItem menuItem)
+        public static ConzapMenu NewMenu(ConzapMenuItem menuItem, string heading = null)
         {
-            return new ConzapMenu(menuItems: new List<ConzapMenuItem>() { menuItem });
+            return new ConzapMenu(menuItems: new List<ConzapMenuItem>() { menuItem }).SetHeading(heading);
         }
 
-        public static ConzapMenu NewMenu(List<ConzapMenuItem> menuItems)
+        public static ConzapMenu NewMenu(List<ConzapMenuItem> menuItems, string heading = null)
         {
-            return new ConzapMenu(menuItems: menuItems);
+            return new ConzapMenu(menuItems: menuItems).SetHeading(heading);
         }
         #endregion
 
@@ -69,11 +69,11 @@ namespace Conzap
         /// <summary>
         /// Prints a list and waits for key to continue
         /// </summary>
-        public static void PrintList(ViewStyle style, params string[] list)
-            => PrintStuff.PrintList(style, list);
+        public static void PrintList(params string[] list)
+            => PrintStuff.PrintList(list);
 
-        public static void PrintLine(string printLine, ViewStyle style)
-    => PrintStuff.PrintLine(printLine, style);
+        public static void PrintLine(string printLine)
+    => PrintStuff.PrintLine(printLine);
 
         public static ObjectPrinter<T> PrintObject<T>(T objectToBePrinted) => PrintStuff.PrintObject(objectToBePrinted);
 
@@ -84,9 +84,9 @@ namespace Conzap
             return PrintStuff.PrintObjects(objectsToBePrinted).Configure(ObjectPrinterOptions.UseOnlyCustomFields);
         }
 
-        public static void PrintHeading(ViewStyle style)
+        public static void PrintHeading(string heading = null, bool clearScreen  = true)
         {
-           ConzapToolHelpers.ClearAndPrintHeading(style);
+           ConzapToolHelpers.ClearAndPrintHeading(heading, clearScreen);
         }
 
         #endregion
@@ -102,7 +102,7 @@ namespace Conzap
         {
             ConzapToolHelpers.ClearScreen(clearScreen);
 
-            ConzapToolHelpers.ConsoleWriteLine(message);
+            ConzapToolHelpers.WriteLine(message);
 
             var input = Console.ReadKey();
             return input;
@@ -139,7 +139,7 @@ namespace Conzap
         /// <returns>the parsed input as int</returns>
         public static int ChooseFromList(params string[] menuItems)
         {
-            return Choose.ChooseFromList(menuItems);
+            return Choose.ChooseFromList(null, menuItems);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Conzap
         /// <param name="errorMessage">Displayed if input does not parse to in</param>
         /// <param name="clearScreen">Should screen be cleared before asking for input? Default is true.</param>
         /// <returns>The chosen item of type T</returns>
-        public static T ChooseFromList<T>(IEnumerable<T> items, Func<T, string> keyFactory, ViewStyle style)
+        public static T ChooseFromList<T>(IEnumerable<T> items, Func<T, string> keyFactory, ViewStyle style= null)
             => Choose.ChooseFromList(items, keyFactory, style);
 
         #endregion

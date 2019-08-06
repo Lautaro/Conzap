@@ -53,6 +53,7 @@
     <Compile Include="Conzap.Tools\AskFor.cs" />
     <Compile Include="Conzap.Tools\Misc.cs" />
     <Compile Include="Conzap.Tools\PrintStuff.cs" />
+    <Compile Include="GlobalViewStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Conzap.Tools\ConzapTools.cs" />
     <Compile Include="ViewStyling\Header.cs" />

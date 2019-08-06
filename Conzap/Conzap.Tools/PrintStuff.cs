@@ -13,8 +13,10 @@ namespace Conzap
     {
         static string NL = System.Environment.NewLine;
 
-        public static void PrintList(ViewStyle style = null , params string[] menuItems)
-        {   
+        public static void PrintList( params string[] menuItems)
+        {
+            var style = GlobalViewStyle.Style;
+
             for (int i = 1; i <= menuItems.Length; i++)
             {
                 string item = menuItems[i - 1];
@@ -37,16 +39,16 @@ namespace Conzap
                         break;
                 }
 
-                ConzapToolHelpers.ConsoleWriteLine(listStyle + item);
+                ConzapToolHelpers.WriteLine(listStyle + item);
             }
         }
 
-        public static void PrintLine(string printLine, ViewStyle style)
+        public static void PrintLine(string printLine, bool clearScreen = true)
         {
-            ConzapToolHelpers.ClearScreen(style.ClearScreen);
-            ConzapToolHelpers.ConsoleWriteLine(printLine);
+            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapToolHelpers.WriteLine(printLine);
 
-            ConzapToolHelpers.PrintPostViewWait(style);
+            ConzapToolHelpers.PrintPostViewWait();
         }
 
         public static ObjectPrinter<T> PrintObject<T>(T objectToBePrinted)

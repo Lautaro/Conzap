@@ -31,14 +31,13 @@ namespace Conzap.ObjectPrinting
 
         #region Public properties
         public List<T> Objects { get; set; } = new List<T>();
-        public ViewStyle Style { get; set; } = new ViewStyle();
+        public List<ObjectPrinter<object>> NestedTypes { get; set; } = new List<ObjectPrinter<object>>();
   
         #endregion
 
         #region Private properties
         List<PropertyInfo> IgnoreThese { get; set; } = new List<PropertyInfo>();
         Func<T, string> _itemHeadingFactory;
-        HeadingStyle _itemHeadingStyle = new HeadingStyle();
         List<ObjectPrinterField<T>> CustomFields { get; set; } = new List<ObjectPrinterField<T>>();
         #endregion
 
@@ -130,10 +129,10 @@ namespace Conzap.ObjectPrinting
             return this;
         }
 
-        public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric)
+        public ObjectPrinter<T>PrintMenu(Func<T, string> objectTitleFabric, string heading = null, bool clearScreen = true)
         {
-            ConzapToolHelpers.ClearScreen(Style.ClearScreen);
-            ConzapToolHelpers.PrintHeading(Style.HeadingStyle);
+            ConzapToolHelpers.ClearScreen(clearScreen);
+            ConzapToolHelpers.PrintHeading(heading);
             var stringList = Objects.Select(o => objectTitleFabric(o)).ToList();
             stringList.Insert(0, "Quit");
 
@@ -160,16 +159,25 @@ namespace Conzap.ObjectPrinting
             var parsedObjects = new List<Dictionary<string, string>>();
             var type = typeof(T);
 
+
+            // ADD FIELDS FOR EACH ITEM
             foreach (var item in ObjectsToPrint.Select(o => (T)o))
             {
                 var currentItem = new Dictionary<string, string>();
                 var properties = type.GetProperties();
 
+                // ADD HEADER IF HEADER USED
                 if (_itemHeadingFactory !=  null)
                 {
                     currentItem.Add(_itemHeadingFactory(item), "");
                 }
 
+                // CHECK FOR TYPE DEFINITION
+
+                // IF HAS TYPE DEFINITION RECURSIVE PRINT AND EXIT TO NEST ITEM
+
+
+                // ADD FROM CUSTOM FIELDS
                 if (CustomFields != null)
                 {
                     foreach (var customField in CustomFields)
@@ -180,11 +188,14 @@ namespace Conzap.ObjectPrinting
                     }
                 }
 
+
+                // EXIT IF ONLY CUSTOM FIELDS
                 if (UseOnlyCustomFields)
                 {
                     continue;
                 }
 
+                // AUTO GENERATE FIELD IF NOT EXITED - LAST RESORT
                 foreach (var property in properties)
                 {
                     if (IgnoreThese.Any( i => i.Name == property.Name))
@@ -201,10 +212,18 @@ namespace Conzap.ObjectPrinting
                 parsedObjects.Add(currentItem);
             }
 
-            foreach (var item in parsedObjects)
-            {
 
-                ConzapTools.PrintList(Style, item.Select(kvp => $"{kvp.Key} : {kvp.Value}").ToArray());
+            // PRINT EACH OBJECT
+            foreach (var dic in parsedObjects)
+            {
+                var items = dic.Select(kvp =>
+                {
+                    var key = string.IsNullOrEmpty(kvp.Key) ? "" : kvp.Key + " : ";
+                    return key + kvp.Value;
+                });
+                ConzapTools.PrintHeading(items.ElementAt(0), false);
+                ConzapTools.PrintList(items.Skip(1).ToArray());
+                ConzapTools.SkipLines(1);
             }
 
             ConzapTools.PauseForKey();
@@ -247,20 +266,7 @@ namespace Conzap.ObjectPrinting
         #endregion
 
         #region Configure ObjectPrinter
-
-        public ObjectPrinter<T> ViewStyle(ViewStyle style)
-        {
-            Style = style;
-            return this;
-        }
-
-
-        public ObjectPrinter<T> ItemHeadingStyle(HeadingStyle itemHeadingStyle)
-        {
-            _itemHeadingStyle = itemHeadingStyle;
-            return this;
-        }
-
+        
         public ObjectPrinter<T> ItemHeadingFactory(Func<T, string> itemHeadingFactory)
         {
             _itemHeadingFactory = itemHeadingFactory;

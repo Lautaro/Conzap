@@ -10,12 +10,10 @@ namespace Conzap.ViewStyling
     {
         public int SkipLines { get; set; } = 0;
         public string Decoration { get; set; } = "-";
-        public string Text { get; set; } = null;
         public HeadingDecoration DecorationType { get; set; } = HeadingDecoration.Underlined;
 
-        public HeadingStyle SetText(string text)
+        public HeadingStyle SetText()
         {
-            Text = text;
             return this;
         }
     }

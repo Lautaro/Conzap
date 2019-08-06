@@ -15,24 +15,32 @@ namespace Conzap.Menu
     public class ConzapMenu
     {
         public List<ConzapMenuItem> MenuItems { get; set; } = new List<ConzapMenuItem>();
-        public ViewStyle ViewStyle { get; set; } = new ViewStyle();
-
-        public ConzapMenu(ViewStyle style = null, List<ConzapMenuItem> menuItems = null)
+        public string Heading { get; set; }
+        public ConzapMenu SetHeading(string heading)
         {
-            ViewStyle.ListStyle = ConsoleListStyle.Numbers;
-            ViewStyle = style ?? ViewStyle;
+            Heading = heading;
+            return this;
+        }
+        public ConzapMenu(List<ConzapMenuItem> menuItems = null, string heading = null)
+        {
+            var style = GlobalViewStyle.Style;
             AddRange(menuItems);
-            MenuItems.Insert(0,new ConzapMenuItem() { Title = ViewStyle.QuitItemTitle, Value = ViewStyle.QuitItemTitle });
+            MenuItems.Insert(0,new ConzapMenuItem() { Title = style.QuitItemTitle, Value = style.QuitItemTitle });
         }
 
-        public void Run()
+
+        public void Run(string heading = null)
         {
+            heading = heading ?? Heading;
             while (true)
             {
                 var listItems = MenuItems.Select(ami => ami.Title).ToList();
-                
+
+                ConzapToolHelpers.ClearAndPrintHeading(heading);
+
                 var input = ConzapTools.ChooseFromList(listItems.ToArray()) -1;
-                Console.Clear();
+
+                ConzapTools.ClearScreen();
                 var chosenMenuItem = MenuItems[input];
                 var value = chosenMenuItem.Value;
                 if (value == "quit")
@@ -111,8 +119,12 @@ namespace Conzap.Menu
             return this;
         }
 
-        public ConzapMenu AddAndRun(string heading, Action callback)
+        public ConzapMenu AddAndRun(string heading, Action callback )
         {
+            if (heading == null)
+            {
+                heading = Heading;
+            }
             Add(heading, callback);
             Run();
             return this;

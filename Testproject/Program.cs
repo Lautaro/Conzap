@@ -22,7 +22,7 @@ namespace ConsoleApp2
             // OBJECT PRINTER
 
             // 1. Print as is. Prints unattributed properties of Fruit using property name and value and uses attribute title for the properties that are attributed
-            // ObjectPrinterOne();
+             ObjectPrinting1();
 
             // 2. Configured to ignore non attributed properties as well as ignore attributes
             //Two();
@@ -37,7 +37,7 @@ namespace ConsoleApp2
             //Five();
 
             #region old stuff
-            InstantiateConzapMenu();
+          //  InstantiateConzapMenu();
 
             //PrintListOfObjects();
 
@@ -57,8 +57,9 @@ namespace ConsoleApp2
         }
 
         // 1. Pass type but no field information
-        private static void One()
+        private static void ObjectPrinting1()
         {
+            ConzapTools.ClearScreen();
             ConzapTools.PrintObjects(fruit).Print();
 
         }
@@ -147,8 +148,9 @@ namespace ConsoleApp2
 
         private static void InstantiateConzapMenu()
         {
-            ConzapTools.PrintHeading(ViewStyle.New("Menuuu", true)); 
-            ConzapTools.NewMenu()
+            GlobalViewStyle.Style.HeadingStyle.DecorationType = HeadingDecoration.Wrapped;
+
+            ConzapTools.NewMenu("Menuu MUUUU")
                 .Add("Create person", () => handlePersons.CreatePerson())
                 .AddAndRun("List persons", () => handlePersons.ListPersons());
         }

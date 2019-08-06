@@ -35,9 +35,9 @@ namespace Conzap
             }
         }
 
-        public static void RunMenu(ViewStyle style = null, params ConzapMenuItem[] menuItems)
+        public static void RunMenu(params ConzapMenuItem[] menuItems)
         {
-            var menu = new ConzapMenu(style, menuItems.ToList());
+            var menu = new ConzapMenu(menuItems.ToList());
             menu.Run();
         }
 

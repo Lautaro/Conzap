@@ -25,7 +25,7 @@ namespace ConsoleApp2
         public void CreateFruit()
         {
             ConzapTools.ClearScreen();
-            ConzapTools.PrintLine("CREATE NEW FRUIT", new ViewStyle() { ClearScreen = true });
+            ConzapTools.PrintLine("CREATE NEW FRUIT");
             var fruit = new Fruit();
 
             fruit.Type = ConzapTools.ChooseString("Type: ");
@@ -49,10 +49,10 @@ namespace ConsoleApp2
         {
             return new List<Fruit>()
              {
-                 new Fruit(3,"Apple", "Red shiny apples", Color.Red),
-                 new Fruit(10,"Melon", "Traditional big cucumber melon", Color.Green),
-                 new Fruit(9,"Lemon", "Yellow sour bitter lemon", Color.Yellow),
-                 new Fruit(23,"Grape", "Sweet tasty grapes", Color.Purple)
+                 new Fruit(3,"Apple", "Red shiny apples", Color.Red,2),
+                 new Fruit(10,"Melon", "Traditional big cucumber melon", Color.Green,4),
+                 new Fruit(9,"Lemon", "Yellow sour bitter lemon", Color.Yellow,1),
+                 new Fruit(23,"Grape", "Sweet tasty grapes", Color.Purple,2)
              };
         }
     }

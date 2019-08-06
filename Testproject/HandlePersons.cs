@@ -64,8 +64,6 @@ namespace ConsoleApp2
                 .CustomField("Age", p => p.Age.ToString())
                 .CustomField("Year", p => p.Year.ToString())
                 .Print();
-            
-            ConzapTools.ChooseKey();
         }
     }
 }
